@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="module-id" content="06">
+  <title>Juegos Extensivos — Teoría de Juegos</title>
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="stylesheet" href="../../css/components.css">
+</head>
+<body class="module-page">
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="header-brand">
+        <span class="brand-icon">♟</span>
+        <span class="brand-name">Teoría de Juegos</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../../index.html#modulos">Módulos</a>
+        <a href="../../index.html#notebooks">Notebooks</a>
+        <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="module-main">
+    <div class="content-container">
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Inicio</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Módulo 06 — Juegos Extensivos</span>
+      </nav>
+
+      <header class="module-header">
+        <div class="module-number">Módulo 06 de 10</div>
+        <h1>Juegos Extensivos</h1>
+        <p class="subtitle">El orden de las decisiones cambia el juego: árboles e inducción hacia atrás</p>
+        <div class="tag-list">
+          <span class="tag">árbol de juego</span>
+          <span class="tag">backward induction</span>
+          <span class="tag">SPE</span>
+          <span class="tag">credibilidad</span>
+        </div>
+      </header>
+
+      <section>
+        <h2>El orden importa</h2>
+        <p>La matriz de pagos ignora cuándo decide cada jugador. En muchas situaciones reales el orden es crucial: primero habla uno, luego responde el otro habiendo observado la primera elección. La <strong>forma extensiva</strong> captura esta secuencia mediante un árbol de juego.</p>
+        <p>En el árbol, cada nodo es un punto de decisión, cada rama una acción posible, y cada hoja un pago terminal. El algoritmo de solución es la <strong>inducción hacia atrás</strong> (backward induction): empezar por las hojas y subir razonando hacia la raíz, eliminando en cada nodo las acciones que el jugador racional no elegiría.</p>
+        <p>Un resultado fundamental: no todas las amenazas son creíbles. Un jugador puede amenazar con una acción costosa para disuadir al rival, pero si llegado el momento cumplir la amenaza lo perjudica más que no cumplirla, el rival sabe que es un farol. El <strong>Equilibrio Perfecto en Subjuegos (SPE)</strong> elimina exactamente estos equilibrios con amenazas vacías.</p>
+      </section>
+
+      <section>
+        <h2>Conceptos clave</h2>
+        <ul class="concept-list">
+          <li>
+            <span class="concept-name">Forma extensiva</span>
+            <span class="concept-desc">Representación del juego como árbol. Recoge el orden de movimientos, la información disponible en cada nodo y los pagos en las hojas.</span>
+          </li>
+          <li>
+            <span class="concept-name">Backward induction</span>
+            <span class="concept-desc">Resolver el árbol de derecha a izquierda: en cada nodo terminal, el jugador elige su mejor acción dado lo que queda por venir.</span>
+          </li>
+          <li>
+            <span class="concept-name">Amenaza creíble</span>
+            <span class="concept-desc">Una amenaza es creíble si cumplirla es óptimo en el subjuego donde se ejecuta. Si no lo es, el rival la ignorará.</span>
+          </li>
+          <li>
+            <span class="concept-name">SPE</span>
+            <span class="concept-desc">Equilibrio Perfecto en Subjuegos: equilibrio de Nash que es también equilibrio en cada subjuego del árbol. Elimina equilibrios con amenazas no creíbles.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Constructor de árboles de juego</h2>
+        <div class="widget-placeholder">
+          <div class="widget-icon">🌳</div>
+          <h3>Editor visual de árboles + backward induction — Fase 2</h3>
+          <p>Dibuja tu árbol de juego, asigna pagos a las hojas y ejecuta "Resolver". D3.js animará la inducción hacia atrás coloreando las ramas óptimas de derecha a izquierda.</p>
+        </div>
+      </section>
+
+      <div class="notebook-callout">
+        <span class="notebook-callout-icon">📓</span>
+        <div class="notebook-callout-content">
+          <h4>Cuaderno Jupyter — Módulo 06</h4>
+          <p>Implementa backward induction de forma recursiva con <code>networkx</code>. Analiza el juego de entrada al mercado (Incumbent vs. Entrant) y demuestra por qué la amenaza de guerra de precios puede no ser creíble.</p>
+          <a href="../../notebooks/06_juegos_extensivos.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
+        </div>
+      </div>
+
+      <nav class="module-nav">
+        <a href="../05-suma-cero/index.html" class="nav-item nav-prev">
+          <span class="nav-direction">← Anterior</span>
+          <span class="nav-title">05 · Juegos de Suma Cero</span>
+        </a>
+        <a href="../07-estrategias-mixtas/index.html" class="nav-item nav-next">
+          <span class="nav-direction">Siguiente →</span>
+          <span class="nav-title">07 · Estrategias Mixtas</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Teoría de Juegos &nbsp;·&nbsp; Licencia MIT &nbsp;·&nbsp;
+         <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub</a></p>
+    </div>
+  </footer>
+
+  <script src="../../js/core/progress.js"></script>
+</body>
+</html>

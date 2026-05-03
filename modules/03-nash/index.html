@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="module-id" content="03">
+  <title>Equilibrio de Nash — Teoría de Juegos</title>
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="stylesheet" href="../../css/components.css">
+</head>
+<body class="module-page">
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="header-brand">
+        <span class="brand-icon">♟</span>
+        <span class="brand-name">Teoría de Juegos</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../../index.html#modulos">Módulos</a>
+        <a href="../../index.html#notebooks">Notebooks</a>
+        <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="module-main">
+    <div class="content-container">
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Inicio</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Módulo 03 — Equilibrio de Nash</span>
+      </nav>
+
+      <header class="module-header">
+        <div class="module-number">Módulo 03 de 10</div>
+        <h1>Equilibrio de Nash</h1>
+        <p class="subtitle">El punto del que nadie quiere desviarse unilateralmente</p>
+        <div class="tag-list">
+          <span class="tag">mejor respuesta</span>
+          <span class="tag">equilibrio</span>
+          <span class="tag">multiplicidad</span>
+          <span class="tag">punto fijo</span>
+        </div>
+      </header>
+
+      <section>
+        <h2>El punto sin arrepentimiento</h2>
+        <p>El equilibrio de Nash es el concepto central de la teoría de juegos moderna. Un perfil de estrategias —una elección por jugador— está en equilibrio de Nash si <strong>ningún jugador puede mejorar su pago cambiando unilateralmente su estrategia</strong>, dados los que hacen los demás.</p>
+        <p>Es un punto de descanso del razonamiento estratégico: si todos están en equilibrio, nadie tiene incentivo a desviarse. Por eso se llama "sin arrepentimiento". Lo que <em>no</em> implica es que sea el mejor resultado posible para todos —el dilema del prisionero lo demostrará brutalmente en el módulo siguiente.</p>
+        <p>John Nash demostró en 1950 que <em>todo juego finito tiene al menos un equilibrio</em> (posiblemente en estrategias mixtas). La demostración usa el teorema de punto fijo de Kakutani: la función de mejor respuesta siempre tiene un punto fijo.</p>
+      </section>
+
+      <section>
+        <h2>Conceptos clave</h2>
+        <ul class="concept-list">
+          <li>
+            <span class="concept-name">Mejor respuesta</span>
+            <span class="concept-desc">La estrategia que maximiza el pago de un jugador dado lo que hacen los demás. El equilibrio es el cruce de las mejores respuestas de todos.</span>
+          </li>
+          <li>
+            <span class="concept-name">Equilibrio de Nash</span>
+            <span class="concept-desc">Perfil de estrategias donde cada jugador juega su mejor respuesta a las estrategias del resto.</span>
+          </li>
+          <li>
+            <span class="concept-name">Multiplicidad</span>
+            <span class="concept-desc">Un juego puede tener varios equilibrios de Nash. Elegir entre ellos requiere criterios adicionales (coordinación, focal points, etc.).</span>
+          </li>
+          <li>
+            <span class="concept-name">Juegos clásicos</span>
+            <span class="concept-desc">Batalla de Sexos (2 equilibrios puros), Gallina (2 equilibrios puros + 1 mixto), Caza del Ciervo (2 equilibrios puros de distinta eficiencia).</span>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Visualizador de curvas de mejor respuesta</h2>
+        <div class="widget-placeholder">
+          <div class="widget-icon">⚖️</div>
+          <h3>Curvas de mejor respuesta con sliders — Fase 1</h3>
+          <p>Matriz 2×2 editable con sliders de pagos. D3.js dibuja en tiempo real las curvas de mejor respuesta de ambos jugadores. Los equilibrios de Nash aparecen como sus intersecciones, animados al mover los sliders.</p>
+        </div>
+      </section>
+
+      <div class="notebook-callout">
+        <span class="notebook-callout-icon">📓</span>
+        <div class="notebook-callout-content">
+          <h4>Cuaderno Jupyter — Módulo 03</h4>
+          <p>Usa <code>nashpy</code> para calcular todos los equilibrios de Nash de un juego. Analiza la Batalla de Sexos, el Stag Hunt y el Gallina, y visualiza sus curvas de mejor respuesta.</p>
+          <a href="../../notebooks/03_nash_equilibrio.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
+        </div>
+      </div>
+
+      <nav class="module-nav">
+        <a href="../02-dominancia/index.html" class="nav-item nav-prev">
+          <span class="nav-direction">← Anterior</span>
+          <span class="nav-title">02 · Dominancia</span>
+        </a>
+        <a href="../04-prisionero/index.html" class="nav-item nav-next">
+          <span class="nav-direction">Siguiente →</span>
+          <span class="nav-title">04 · Dilema del Prisionero</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Teoría de Juegos &nbsp;·&nbsp; Licencia MIT &nbsp;·&nbsp;
+         <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub</a></p>
+    </div>
+  </footer>
+
+  <script src="../../js/core/progress.js"></script>
+</body>
+</html>

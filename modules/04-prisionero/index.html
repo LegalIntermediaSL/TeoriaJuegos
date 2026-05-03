@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="module-id" content="04">
+  <title>Dilema del Prisionero — Teoría de Juegos</title>
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="stylesheet" href="../../css/components.css">
+</head>
+<body class="module-page">
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="header-brand">
+        <span class="brand-icon">♟</span>
+        <span class="brand-name">Teoría de Juegos</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../../index.html#modulos">Módulos</a>
+        <a href="../../index.html#notebooks">Notebooks</a>
+        <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="module-main">
+    <div class="content-container">
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Inicio</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Módulo 04 — Dilema del Prisionero</span>
+      </nav>
+
+      <header class="module-header">
+        <div class="module-number">Módulo 04 de 10</div>
+        <h1>Dilema del Prisionero</h1>
+        <p class="subtitle">Cuando la racionalidad individual traiciona al óptimo colectivo</p>
+        <div class="tag-list">
+          <span class="tag">cooperación</span>
+          <span class="tag">traición</span>
+          <span class="tag">dilema iterado</span>
+          <span class="tag">Axelrod</span>
+          <span class="tag">Tit-for-Tat</span>
+        </div>
+      </header>
+
+      <section>
+        <h2>El juego más famoso del mundo</h2>
+        <p>Dos sospechosos detenidos. Interrogados por separado, sin posibilidad de comunicarse. Cada uno puede <strong>cooperar</strong> (callar) o <strong>traicionar</strong> (confesar). Si ambos callan, cumplen 1 año. Si uno traiciona y el otro calla, el traidor queda libre y el callado cumple 3. Si ambos traicionan, ambos cumplen 2 años.</p>
+        <p>El análisis de dominancia es brutal: si el otro calla, mejor traicionar (0 < 1). Si el otro traiciona, mejor traicionar también (2 < 3). <strong>Traicionar es estrategia dominante para ambos</strong>, independientemente de lo que haga el rival. El equilibrio de Nash es (Traicionar, Traicionar), aunque ambos estarían mejor en (Callar, Callar).</p>
+        <p>La racionalidad individual produce un resultado colectivamente irracional. Ahí está el dilema. Y en él reconocemos la carrera armamentista, la sobreexplotación pesquera, la publicidad comparativa, las guerras de precios y mucho más.</p>
+      </section>
+
+      <section>
+        <h2>El dilema iterado y el torneo de Axelrod</h2>
+        <p>¿Y si el juego se repite? En 1980, Robert Axelrod invitó a científicos de distintas disciplinas a enviar estrategias para un torneo de dilema iterado. La estrategia ganadora fue la más simple: <strong>Tit-for-Tat</strong>. Coopera en la primera ronda. A partir de entonces, hace lo que el rival hizo en la ronda anterior.</p>
+        <ul class="concept-list">
+          <li><span class="concept-name">Tit-for-Tat</span><span class="concept-desc">Coopera primero, luego imita. Amable, provocable, perdonadora, transparente.</span></li>
+          <li><span class="concept-name">Grim Trigger</span><span class="concept-desc">Coopera hasta que el rival traicione una vez. Luego traiciona para siempre. Efectiva pero frágil.</span></li>
+          <li><span class="concept-name">Always Defect</span><span class="concept-desc">Traiciona siempre. Explota a los cooperadores pero pierde ante sí misma.</span></li>
+          <li><span class="concept-name">Generous TfT</span><span class="concept-desc">Como Tit-for-Tat pero perdona traiciones con cierta probabilidad. Rompe ciclos de represalia.</span></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Juega contra el ordenador</h2>
+        <div class="widget-placeholder">
+          <div class="widget-icon">🔒</div>
+          <h3>Dilema iterado jugable + Torneo de Axelrod — Fase 1</h3>
+          <p>Elige tu estrategia y juega 20 rondas contra el ordenador. Luego lanza un torneo entre todas las estrategias y observa cómo evolucionan los scores con Chart.js.</p>
+        </div>
+      </section>
+
+      <div class="notebook-callout">
+        <span class="notebook-callout-icon">📓</span>
+        <div class="notebook-callout-content">
+          <h4>Cuaderno Jupyter — Módulo 04</h4>
+          <p>Implementa un torneo de Axelrod completo con la librería <code>axelrod</code>. Añade tu propia estrategia y analiza qué propiedades la hacen robusta.</p>
+          <a href="../../notebooks/04_dilema_prisionero.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
+        </div>
+      </div>
+
+      <nav class="module-nav">
+        <a href="../03-nash/index.html" class="nav-item nav-prev">
+          <span class="nav-direction">← Anterior</span>
+          <span class="nav-title">03 · Equilibrio de Nash</span>
+        </a>
+        <a href="../05-suma-cero/index.html" class="nav-item nav-next">
+          <span class="nav-direction">Siguiente →</span>
+          <span class="nav-title">05 · Juegos de Suma Cero</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Teoría de Juegos &nbsp;·&nbsp; Licencia MIT &nbsp;·&nbsp;
+         <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub</a></p>
+    </div>
+  </footer>
+
+  <script src="../../js/core/progress.js"></script>
+</body>
+</html>

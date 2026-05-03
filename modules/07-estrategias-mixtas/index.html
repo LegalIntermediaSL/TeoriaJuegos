@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="module-id" content="07">
+  <title>Estrategias Mixtas — Teoría de Juegos</title>
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="stylesheet" href="../../css/components.css">
+</head>
+<body class="module-page">
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="header-brand">
+        <span class="brand-icon">♟</span>
+        <span class="brand-name">Teoría de Juegos</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../../index.html#modulos">Módulos</a>
+        <a href="../../index.html#notebooks">Notebooks</a>
+        <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="module-main">
+    <div class="content-container">
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Inicio</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Módulo 07 — Estrategias Mixtas</span>
+      </nav>
+
+      <header class="module-header">
+        <div class="module-number">Módulo 07 de 10</div>
+        <h1>Estrategias Mixtas</h1>
+        <p class="subtitle">Ser impredecible puede ser óptimo: la aleatoriedad como estrategia</p>
+        <div class="tag-list">
+          <span class="tag">probabilidad</span>
+          <span class="tag">indiferencia</span>
+          <span class="tag">equilibrio mixto</span>
+          <span class="tag">Matching Pennies</span>
+        </div>
+      </header>
+
+      <section>
+        <h2>Cuando predecirte es tu debilidad</h2>
+        <p>En algunos juegos no hay equilibrio en estrategias puras: cualquier elección determinista puede ser explotada por el rival. El portero que siempre se tira a la derecha es fácil de batir. El inspector fiscal que siempre revisa el mismo sector es fácil de evadir.</p>
+        <p>Una <strong>estrategia mixta</strong> asigna una distribución de probabilidad sobre las estrategias puras. En equilibrio, cada jugador elige sus probabilidades de forma que el rival sea <em>indiferente</em> entre sus propias estrategias puras —si el rival prefiriera una sobre otra, no estaría en equilibrio.</p>
+        <p>Este principio de indiferencia es la clave para calcular el equilibrio mixto: buscamos las probabilidades que hacen que el pago esperado del rival sea igual en todas sus estrategias.</p>
+      </section>
+
+      <section>
+        <h2>Conceptos clave</h2>
+        <ul class="concept-list">
+          <li>
+            <span class="concept-name">Estrategia mixta</span>
+            <span class="concept-desc">Distribución de probabilidad sobre el conjunto de estrategias puras de un jugador.</span>
+          </li>
+          <li>
+            <span class="concept-name">Principio de indiferencia</span>
+            <span class="concept-desc">En un equilibrio mixto, el jugador que mezcla debe hacer indiferente al rival entre todas las estrategias que el rival usa con probabilidad positiva.</span>
+          </li>
+          <li>
+            <span class="concept-name">Matching Pennies</span>
+            <span class="concept-desc">Juego de suma cero sin equilibrio puro. El único equilibrio es (½, ½) para ambos. Modelo de muchos deportes y situaciones de inspección.</span>
+          </li>
+          <li>
+            <span class="concept-name">Pago esperado</span>
+            <span class="concept-desc">Con estrategias mixtas, el pago de cada combinación es la media ponderada por las probabilidades. El jugador maximiza su pago esperado.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Visualizador de equilibrio mixto</h2>
+        <div class="widget-placeholder">
+          <div class="widget-icon">🎲</div>
+          <h3>Slider de probabilidad + pago esperado — Fase 3</h3>
+          <p>Para Matching Pennies o el juego del penalti, un slider controla la probabilidad p del Jugador 1. D3.js muestra en tiempo real el pago esperado del Jugador 2 como función de p. El equilibrio aparece donde la curva se aplana.</p>
+        </div>
+      </section>
+
+      <div class="notebook-callout">
+        <span class="notebook-callout-icon">📓</span>
+        <div class="notebook-callout-content">
+          <h4>Cuaderno Jupyter — Módulo 07</h4>
+          <p>Calcula equilibrios mixtos analíticamente usando el principio de indiferencia. Incluye el problema del penalti con datos reales de la liga española y la verificación numérica con <code>nashpy</code>.</p>
+          <a href="../../notebooks/07_estrategias_mixtas.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
+        </div>
+      </div>
+
+      <nav class="module-nav">
+        <a href="../06-juegos-extensivos/index.html" class="nav-item nav-prev">
+          <span class="nav-direction">← Anterior</span>
+          <span class="nav-title">06 · Juegos Extensivos</span>
+        </a>
+        <a href="../08-evolucionaria/index.html" class="nav-item nav-next">
+          <span class="nav-direction">Siguiente →</span>
+          <span class="nav-title">08 · Teoría Evolutiva</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Teoría de Juegos &nbsp;·&nbsp; Licencia MIT &nbsp;·&nbsp;
+         <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub</a></p>
+    </div>
+  </footer>
+
+  <script src="../../js/core/progress.js"></script>
+</body>
+</html>

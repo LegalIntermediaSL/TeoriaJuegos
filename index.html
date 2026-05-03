@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tutorial interactivo de teoría de juegos: desde el equilibrio de Nash hasta el diseño de mecanismos. Nivel divulgativo con simulaciones y cuadernos Jupyter.">
+  <title>Teoría de Juegos — Tutorial Interactivo</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="header-brand">
+        <span class="brand-icon">♟</span>
+        <span class="brand-name">Teoría de Juegos</span>
+      </a>
+      <nav class="header-nav">
+        <a href="#modulos">Módulos</a>
+        <a href="#notebooks">Notebooks</a>
+        <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="container">
+      <h1>Pensar como un estratega</h1>
+      <p class="lead">
+        Un recorrido por la teoría de juegos: desde el dilema del prisionero hasta el diseño de mecanismos.
+        Conceptos rigurosos explicados sin fórmulas intimidatorias, con simulaciones interactivas y cuadernos Python.
+      </p>
+      <div class="hero-cta">
+        <a href="modules/01-introduccion/index.html" class="btn btn-primary">Comenzar →</a>
+        <a href="#modulos" class="btn btn-outline">Ver los 10 módulos</a>
+      </div>
+      <div class="progress-global">
+        <span class="progress-label" id="progressLabel">0 de 10 módulos completados</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Módulos ── -->
+  <section class="modules-grid" id="modulos">
+    <div class="container">
+      <div class="section-header">
+        <h2>10 módulos</h2>
+        <p>Cada módulo combina explicación conceptual, simulación interactiva y un cuaderno Jupyter con implementaciones desde cero.</p>
+      </div>
+      <div class="cards-grid">
+
+        <a href="modules/01-introduccion/index.html" class="module-card" data-module-id="01">
+          <div class="card-number">Módulo 01</div>
+          <div class="card-icon">🎯</div>
+          <div class="card-title">Pensar estratégicamente</div>
+          <div class="card-subtitle">Qué es un juego formal y en qué se diferencia de una decisión ordinaria</div>
+          <div class="tag-list">
+            <span class="tag">jugadores</span>
+            <span class="tag">estrategias</span>
+            <span class="tag">pagos</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-status">Pendiente</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="modules/02-dominancia/index.html" class="module-card" data-module-id="02">
+          <div class="card-number">Módulo 02</div>
+          <div class="card-icon">✂️</div>
+          <div class="card-title">Dominancia</div>
+          <div class="card-subtitle">Eliminar lo obvio para encontrar lo racional: la eliminación iterada</div>
+          <div class="tag-list">
+            <span class="tag">EIED</span>
+            <span class="tag">dom. estricta</span>
+            <span class="tag">dom. débil</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-status">Pendiente</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="modules/03-nash/index.html" class="module-card" data-module-id="03">
+          <div class="card-number">Módulo 03</div>
+          <div class="card-icon">⚖️</div>
+          <div class="card-title">Equilibrio de Nash</div>
+          <div class="card-subtitle">El punto del que nadie quiere desviarse unilateralmente</div>
+          <div class="tag-list">
+            <span class="tag">Nash</span>
+            <span class="tag">mejor respuesta</span>
+            <span class="tag">multiplicidad</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-status">Pendiente</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="modules/04-prisionero/index.html" class="module-card" data-module-id="04">
+          <div class="card-number">Módulo 04</div>
+          <div class="card-icon">🔒</div>
+          <div class="card-title">Dilema del Prisionero</div>
+          <div class="card-subtitle">Cuando la racionalidad individual traiciona al óptimo colectivo</div>
+          <div class="tag-list">
+            <span class="tag">dilema</span>
+            <span class="tag">cooperación</span>
+            <span class="tag">Axelrod</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-status">Pendiente</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="modules/05-suma-cero/index.html" class="module-card" data-module-id="05">
+          <div class="card-number">Módulo 05</div>
+          <div class="card-icon">⚔️</div>
+          <div class="card-title">Juegos de Suma Cero</div>
+          <div class="card-subtitle">Conflicto puro: tu ganancia es exactamente mi pérdida</div>
+          <div class="tag-list">
+            <span class="tag">minimax</span>
+            <span class="tag">Von Neumann</span>
+            <span class="tag">punto de silla</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-status">Pendiente</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="modules/06-juegos-extensivos/index.html" class="module-card" data-module-id="06">
+          <div class="card-number">Módulo 06</div>
+          <div class="card-icon">🌳</div>
+          <div class="card-title">Juegos Extensivos</div>
+          <div class="card-subtitle">El orden de las decisiones cambia el juego: árboles e inducción hacia atrás</div>
+          <div class="tag-list">
+            <span class="tag">árbol de juego</span>
+            <span class="tag">backward induction</span>
+            <span class="tag">credibilidad</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-status">Pendiente</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="modules/07-estrategias-mixtas/index.html" class="module-card" data-module-id="07">
+          <div class="card-number">Módulo 07</div>
+          <div class="card-icon">🎲</div>
+          <div class="card-title">Estrategias Mixtas</div>
+          <div class="card-subtitle">Ser impredecible puede ser óptimo: la aleatoriedad como estrategia</div>
+          <div class="tag-list">
+            <span class="tag">probabilidad</span>
+            <span class="tag">indiferencia</span>
+            <span class="tag">eq. mixto</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-status">Pendiente</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="modules/08-evolucionaria/index.html" class="module-card" data-module-id="08">
+          <div class="card-number">Módulo 08</div>
+          <div class="card-icon">🧬</div>
+          <div class="card-title">Teoría Evolutiva</div>
+          <div class="card-subtitle">Darwin juega: estrategias que se propagan, mutan y compiten</div>
+          <div class="tag-list">
+            <span class="tag">ESS</span>
+            <span class="tag">replicator dynamics</span>
+            <span class="tag">Halcón-Paloma</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-status">Pendiente</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="modules/09-cooperativos/index.html" class="module-card" data-module-id="09">
+          <div class="card-number">Módulo 09</div>
+          <div class="card-icon">🤝</div>
+          <div class="card-title">Juegos Cooperativos</div>
+          <div class="card-subtitle">Coaliciones y el valor de Shapley: cómo repartir lo que se gana juntos</div>
+          <div class="tag-list">
+            <span class="tag">coaliciones</span>
+            <span class="tag">Shapley</span>
+            <span class="tag">núcleo</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-status">Pendiente</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="modules/10-mecanismos/index.html" class="module-card" data-module-id="10">
+          <div class="card-number">Módulo 10</div>
+          <div class="card-icon">⚙️</div>
+          <div class="card-title">Diseño de Mecanismos</div>
+          <div class="card-subtitle">Ingeniería de incentivos: diseñar las reglas para obtener el resultado deseado</div>
+          <div class="tag-list">
+            <span class="tag">subastas</span>
+            <span class="tag">Vickrey</span>
+            <span class="tag">incentivos</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-status">Pendiente</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Notebooks ── -->
+  <section class="notebooks-section" id="notebooks">
+    <div class="container">
+      <div class="section-header">
+        <h2>📓 Cuadernos Jupyter</h2>
+        <p>
+          Cada módulo tiene un notebook Python con el algoritmo implementado desde cero,
+          ejemplos con datos históricos y ejercicios con soluciones.
+        </p>
+        <div style="display:flex; gap:1rem; justify-content:center; margin-top:2rem; flex-wrap:wrap;">
+          <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos/tree/main/notebooks" target="_blank" rel="noopener" class="btn btn-accent">Ver notebooks en GitHub ↗</a>
+          <a href="notebooks/environment.yml" class="btn btn-outline">Descargar entorno conda</a>
+        </div>
+      </div>
+      <div class="nb-grid">
+        <a href="notebooks/00_setup.ipynb" class="nb-card"><div class="nb-card-num">00</div><div class="nb-card-title">Setup del entorno</div></a>
+        <a href="notebooks/01_introduccion.ipynb" class="nb-card"><div class="nb-card-num">01</div><div class="nb-card-title">Introducción</div></a>
+        <a href="notebooks/02_dominancia.ipynb" class="nb-card"><div class="nb-card-num">02</div><div class="nb-card-title">Dominancia</div></a>
+        <a href="notebooks/03_nash_equilibrio.ipynb" class="nb-card"><div class="nb-card-num">03</div><div class="nb-card-title">Equilibrio de Nash</div></a>
+        <a href="notebooks/04_dilema_prisionero.ipynb" class="nb-card"><div class="nb-card-num">04</div><div class="nb-card-title">Dilema del Prisionero</div></a>
+        <a href="notebooks/05_suma_cero.ipynb" class="nb-card"><div class="nb-card-num">05</div><div class="nb-card-title">Suma Cero</div></a>
+        <a href="notebooks/06_juegos_extensivos.ipynb" class="nb-card"><div class="nb-card-num">06</div><div class="nb-card-title">Juegos Extensivos</div></a>
+        <a href="notebooks/07_estrategias_mixtas.ipynb" class="nb-card"><div class="nb-card-num">07</div><div class="nb-card-title">Estrategias Mixtas</div></a>
+        <a href="notebooks/08_evolucionaria.ipynb" class="nb-card"><div class="nb-card-num">08</div><div class="nb-card-title">Teoría Evolutiva</div></a>
+        <a href="notebooks/09_cooperativos_shapley.ipynb" class="nb-card"><div class="nb-card-num">09</div><div class="nb-card-title">Juegos Cooperativos</div></a>
+        <a href="notebooks/10_diseno_mecanismos.ipynb" class="nb-card"><div class="nb-card-num">10</div><div class="nb-card-title">Diseño de Mecanismos</div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>Teoría de Juegos &nbsp;·&nbsp; Licencia MIT &nbsp;·&nbsp;
+         <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/core/progress.js"></script>
+</body>
+</html>

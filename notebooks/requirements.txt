@@ -1,0 +1,10 @@
+# Alternativa pip pura (sin conda)
+numpy>=1.26
+scipy>=1.12
+matplotlib>=3.8
+networkx>=3.2
+nashpy==0.0.21
+axelrod==4.13.0
+jupyter>=1.0
+jupyterlab>=4.0
+ipywidgets>=8.0

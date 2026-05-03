@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="module-id" content="05">
+  <title>Juegos de Suma Cero — Teoría de Juegos</title>
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="stylesheet" href="../../css/components.css">
+</head>
+<body class="module-page">
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="header-brand">
+        <span class="brand-icon">♟</span>
+        <span class="brand-name">Teoría de Juegos</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../../index.html#modulos">Módulos</a>
+        <a href="../../index.html#notebooks">Notebooks</a>
+        <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="module-main">
+    <div class="content-container">
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Inicio</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Módulo 05 — Juegos de Suma Cero</span>
+      </nav>
+
+      <header class="module-header">
+        <div class="module-number">Módulo 05 de 10</div>
+        <h1>Juegos de Suma Cero</h1>
+        <p class="subtitle">Conflicto puro: tu ganancia es exactamente mi pérdida</p>
+        <div class="tag-list">
+          <span class="tag">minimax</span>
+          <span class="tag">Von Neumann</span>
+          <span class="tag">punto de silla</span>
+          <span class="tag">conflicto total</span>
+        </div>
+      </header>
+
+      <section>
+        <h2>Cuando el pastel es fijo</h2>
+        <p>En un juego de suma cero, los pagos de todos los jugadores suman cero en cualquier perfil de estrategias. Lo que uno gana, otro lo pierde exactamente. No existe posibilidad de creación de valor conjunta: el tamaño del pastel es fijo y solo cambia su distribución.</p>
+        <p>John von Neumann demostró en 1928 —antes de que Nash naciera— el <strong>Teorema Minimax</strong>: en todo juego de suma cero de dos jugadores con estrategias finitas, existe siempre una estrategia óptima. El Jugador 1 maximiza el mínimo que puede garantizarse (maximin). El Jugador 2 minimiza el máximo que puede perder (minimax). Ambos valores coinciden.</p>
+        <p>Más importante aún: la teoría nos advierte de un sesgo cognitivo peligroso. La mayoría de interacciones reales —negociaciones, relaciones, comercio internacional— <em>no</em> son de suma cero. Tratarlas como si lo fueran destruye valor que podría crearse.</p>
+      </section>
+
+      <section>
+        <h2>Conceptos clave</h2>
+        <ul class="concept-list">
+          <li>
+            <span class="concept-name">Suma cero</span>
+            <span class="concept-desc">La suma de pagos de todos los jugadores es constante (normalmente cero) para cualquier combinación de estrategias.</span>
+          </li>
+          <li>
+            <span class="concept-name">Punto de silla</span>
+            <span class="concept-desc">Celda de la matriz que es mínimo de su fila y máximo de su columna simultáneamente. Si existe, es el equilibrio en estrategias puras.</span>
+          </li>
+          <li>
+            <span class="concept-name">Teorema Minimax</span>
+            <span class="concept-desc">En juegos de suma cero bimatricial finito, maximin = minimax. Siempre existe un valor del juego y estrategias óptimas.</span>
+          </li>
+          <li>
+            <span class="concept-name">Estrategia mixta</span>
+            <span class="concept-desc">Cuando no hay punto de silla puro, la solución óptima requiere aleatorizar. Ver Módulo 07 para el desarrollo completo.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Calculadora Minimax</h2>
+        <div class="widget-placeholder">
+          <div class="widget-icon">⚔️</div>
+          <h3>Solver minimax paso a paso — Fase 2</h3>
+          <p>Introduce una matriz de suma cero 2×2 o 3×3. El algoritmo busca el punto de silla, muestra el proceso y calcula el valor del juego.</p>
+        </div>
+      </section>
+
+      <div class="notebook-callout">
+        <span class="notebook-callout-icon">📓</span>
+        <div class="notebook-callout-content">
+          <h4>Cuaderno Jupyter — Módulo 05</h4>
+          <p>Resuelve juegos de suma cero con <code>scipy.optimize.linprog</code>. Incluye ejemplos de póker simplificado y negociación de precio único.</p>
+          <a href="../../notebooks/05_suma_cero.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
+        </div>
+      </div>
+
+      <nav class="module-nav">
+        <a href="../04-prisionero/index.html" class="nav-item nav-prev">
+          <span class="nav-direction">← Anterior</span>
+          <span class="nav-title">04 · Dilema del Prisionero</span>
+        </a>
+        <a href="../06-juegos-extensivos/index.html" class="nav-item nav-next">
+          <span class="nav-direction">Siguiente →</span>
+          <span class="nav-title">06 · Juegos Extensivos</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Teoría de Juegos &nbsp;·&nbsp; Licencia MIT &nbsp;·&nbsp;
+         <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub</a></p>
+    </div>
+  </footer>
+
+  <script src="../../js/core/progress.js"></script>
+</body>
+</html>

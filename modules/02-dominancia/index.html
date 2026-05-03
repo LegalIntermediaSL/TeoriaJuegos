@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="module-id" content="02">
+  <title>Dominancia — Teoría de Juegos</title>
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="stylesheet" href="../../css/components.css">
+</head>
+<body class="module-page">
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="header-brand">
+        <span class="brand-icon">♟</span>
+        <span class="brand-name">Teoría de Juegos</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../../index.html#modulos">Módulos</a>
+        <a href="../../index.html#notebooks">Notebooks</a>
+        <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="module-main">
+    <div class="content-container">
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Inicio</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Módulo 02 — Dominancia</span>
+      </nav>
+
+      <header class="module-header">
+        <div class="module-number">Módulo 02 de 10</div>
+        <h1>Dominancia</h1>
+        <p class="subtitle">Eliminar lo obvio para encontrar lo racional</p>
+        <div class="tag-list">
+          <span class="tag">dominancia estricta</span>
+          <span class="tag">dominancia débil</span>
+          <span class="tag">EIED</span>
+          <span class="tag">racionalidad</span>
+        </div>
+      </header>
+
+      <section>
+        <h2>Una estrategia que siempre pierde</h2>
+        <p>Si una estrategia te da peor resultado que otra <em>pase lo que haga el rival</em>, nunca debería jugarla un agente racional. Eso es una <strong>estrategia estrictamente dominada</strong>: hay otra que la supera en todas las situaciones posibles.</p>
+        <p>El razonamiento es limpio: si tú eres racional y sabes que tu rival también lo es, puedes eliminar sus estrategias dominadas igual que las tuyas. El juego resultante es más pequeño y puede tener nuevas estrategias dominadas que antes no lo eran. Aplicar este proceso en cadena se llama <strong>Eliminación Iterada de Estrategias Dominadas (EIED)</strong>.</p>
+        <p>Cuando la EIED lleva a un único perfil de estrategias, el juego se llama <em>dominancia-soluble</em>: la racionalidad por sí sola predice el resultado sin necesidad de coordinación ni de adivinar al rival.</p>
+      </section>
+
+      <section>
+        <h2>Conceptos clave</h2>
+        <ul class="concept-list">
+          <li>
+            <span class="concept-name">Dom. estricta</span>
+            <span class="concept-desc">La estrategia A domina estrictamente a B si A da mayor pago que B para <em>todas</em> las estrategias del rival.</span>
+          </li>
+          <li>
+            <span class="concept-name">Dom. débil</span>
+            <span class="concept-desc">A domina débilmente a B si A es al menos tan buena como B en todos los casos, y estrictamente mejor en alguno.</span>
+          </li>
+          <li>
+            <span class="concept-name">EIED</span>
+            <span class="concept-desc">Proceso iterativo: eliminar estrategias dominadas, reducir el juego y repetir hasta no poder eliminar más.</span>
+          </li>
+          <li>
+            <span class="concept-name">Juego dominancia-soluble</span>
+            <span class="concept-desc">Juego donde la EIED produce un único resultado. La racionalidad común predice un equilibrio sin ambigüedad.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Simulador de eliminación iterada</h2>
+        <div class="widget-placeholder">
+          <div class="widget-icon">✂️</div>
+          <h3>Matriz editable + eliminación animada — Fase 1</h3>
+          <p>Introduce los pagos de una matriz 3×3. Marca qué estrategia crees dominada. El simulador verifica y anima la eliminación paso a paso con D3.js.</p>
+        </div>
+      </section>
+
+      <div class="notebook-callout">
+        <span class="notebook-callout-icon">📓</span>
+        <div class="notebook-callout-content">
+          <h4>Cuaderno Jupyter — Módulo 02</h4>
+          <p>Implementa EIED desde cero con numpy. Resuelve ejercicios de matrices 3×3 con dominancia débil, los casos más delicados del algoritmo.</p>
+          <a href="../../notebooks/02_dominancia.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
+        </div>
+      </div>
+
+      <nav class="module-nav">
+        <a href="../01-introduccion/index.html" class="nav-item nav-prev">
+          <span class="nav-direction">← Anterior</span>
+          <span class="nav-title">01 · Pensar estratégicamente</span>
+        </a>
+        <a href="../03-nash/index.html" class="nav-item nav-next">
+          <span class="nav-direction">Siguiente →</span>
+          <span class="nav-title">03 · Equilibrio de Nash</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Teoría de Juegos &nbsp;·&nbsp; Licencia MIT &nbsp;·&nbsp;
+         <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub</a></p>
+    </div>
+  </footer>
+
+  <script src="../../js/core/progress.js"></script>
+</body>
+</html>

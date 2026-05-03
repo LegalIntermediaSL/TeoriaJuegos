@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="module-id" content="09">
+  <title>Juegos Cooperativos — Teoría de Juegos</title>
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="stylesheet" href="../../css/components.css">
+</head>
+<body class="module-page">
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="header-brand">
+        <span class="brand-icon">♟</span>
+        <span class="brand-name">Teoría de Juegos</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../../index.html#modulos">Módulos</a>
+        <a href="../../index.html#notebooks">Notebooks</a>
+        <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="module-main">
+    <div class="content-container">
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Inicio</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Módulo 09 — Juegos Cooperativos</span>
+      </nav>
+
+      <header class="module-header">
+        <div class="module-number">Módulo 09 de 10</div>
+        <h1>Juegos Cooperativos</h1>
+        <p class="subtitle">Coaliciones y el valor de Shapley: cómo repartir lo que se gana juntos</p>
+        <div class="tag-list">
+          <span class="tag">coaliciones</span>
+          <span class="tag">valor de Shapley</span>
+          <span class="tag">núcleo</span>
+          <span class="tag">función característica</span>
+        </div>
+      </header>
+
+      <section>
+        <h2>La pregunta cambia: ¿cómo repartimos?</h2>
+        <p>En los juegos no cooperativos, la pregunta es <em>qué estrategia elijo</em>. En los cooperativos, los jugadores pueden firmar acuerdos vinculantes y la pregunta es <em>qué reparto es justo y estable</em>. La unidad de análisis es la coalición, no el individuo.</p>
+        <p>Un juego cooperativo se describe mediante la <strong>función característica</strong> v(S): para cada subconjunto S de jugadores, cuánto puede ganar esa coalición actuando junta. El problema central es distribuir v(N) —el valor de la coalición completa— de forma que nadie tenga incentivo a separarse.</p>
+        <p>El <strong>valor de Shapley</strong>, propuesto en 1953, ofrece una solución elegante: el pago de cada jugador es su contribución marginal promedia sobre todas las formas posibles de ordenar a los jugadores. Es el único reparto que satisface simultáneamente cuatro axiomas de equidad: eficiencia, simetría, propiedad del jugador nulo y aditividad.</p>
+      </section>
+
+      <section>
+        <h2>Conceptos clave</h2>
+        <ul class="concept-list">
+          <li>
+            <span class="concept-name">Función característica</span>
+            <span class="concept-desc">v(S) = valor que puede garantizarse la coalición S. Define el juego cooperativo sin especificar estrategias individuales.</span>
+          </li>
+          <li>
+            <span class="concept-name">Núcleo</span>
+            <span class="concept-desc">Conjunto de repartos donde ninguna coalición prefiere separarse. Puede ser vacío (no siempre existe un reparto estable).</span>
+          </li>
+          <li>
+            <span class="concept-name">Valor de Shapley</span>
+            <span class="concept-desc">El pago justo de cada jugador: su contribución marginal media. Único, eficiente y axiomáticamente fundamentado.</span>
+          </li>
+          <li>
+            <span class="concept-name">Aplicaciones</span>
+            <span class="concept-desc">Reparto de costes en infraestructura compartida, poder de voto en parlamentos (índice de Shapley-Shubik), distribución de beneficios en joint ventures.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Calculadora del valor de Shapley</h2>
+        <div class="widget-placeholder">
+          <div class="widget-icon">🤝</div>
+          <h3>Calculadora Shapley para 3–4 jugadores — Fase 4</h3>
+          <p>Define la función característica para cada coalición posible. El algoritmo calcula el valor de Shapley mostrando la contribución marginal de cada jugador en cada ordenación.</p>
+        </div>
+      </section>
+
+      <div class="notebook-callout">
+        <span class="notebook-callout-icon">📓</span>
+        <div class="notebook-callout-content">
+          <h4>Cuaderno Jupyter — Módulo 09</h4>
+          <p>Implementa el valor de Shapley desde la fórmula combinatoria. Aplícalo a un caso de reparto de infraestructura hídrica entre tres municipios y a un sistema de votación parlamentaria con escaños ponderados.</p>
+          <a href="../../notebooks/09_cooperativos_shapley.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
+        </div>
+      </div>
+
+      <nav class="module-nav">
+        <a href="../08-evolucionaria/index.html" class="nav-item nav-prev">
+          <span class="nav-direction">← Anterior</span>
+          <span class="nav-title">08 · Teoría Evolutiva</span>
+        </a>
+        <a href="../10-mecanismos/index.html" class="nav-item nav-next">
+          <span class="nav-direction">Siguiente →</span>
+          <span class="nav-title">10 · Diseño de Mecanismos</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Teoría de Juegos &nbsp;·&nbsp; Licencia MIT &nbsp;·&nbsp;
+         <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub</a></p>
+    </div>
+  </footer>
+
+  <script src="../../js/core/progress.js"></script>
+</body>
+</html>

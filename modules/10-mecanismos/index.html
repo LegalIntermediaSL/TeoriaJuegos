@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="module-id" content="10">
+  <title>Diseño de Mecanismos — Teoría de Juegos</title>
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="stylesheet" href="../../css/components.css">
+</head>
+<body class="module-page">
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="header-brand">
+        <span class="brand-icon">♟</span>
+        <span class="brand-name">Teoría de Juegos</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../../index.html#modulos">Módulos</a>
+        <a href="../../index.html#notebooks">Notebooks</a>
+        <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="module-main">
+    <div class="content-container">
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Inicio</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Módulo 10 — Diseño de Mecanismos</span>
+      </nav>
+
+      <header class="module-header">
+        <div class="module-number">Módulo 10 de 10</div>
+        <h1>Diseño de Mecanismos</h1>
+        <p class="subtitle">Ingeniería de incentivos: diseñar las reglas del juego para obtener el resultado deseado</p>
+        <div class="tag-list">
+          <span class="tag">subastas</span>
+          <span class="tag">Vickrey</span>
+          <span class="tag">compatibilidad de incentivos</span>
+          <span class="tag">revelación</span>
+        </div>
+      </header>
+
+      <section>
+        <h2>La ingeniería inversa de la teoría de juegos</h2>
+        <p>Todos los módulos anteriores analizan juegos dados: ¿qué resultado emerge de estas reglas? El diseño de mecanismos invierte la pregunta: <em>dado el resultado que quiero, ¿qué reglas lo producen como equilibrio?</em></p>
+        <p>El reto fundamental es que el diseñador no conoce las preferencias privadas de los agentes —sus valoraciones, costes o tipos. Un mecanismo bien diseñado hace que <strong>revelar la verdad sea la estrategia óptima</strong>, independientemente de lo que hagan los demás. Esto se llama <em>compatibilidad de incentivos en estrategias dominantes</em>.</p>
+        <p>El ejemplo más limpio es la <strong>subasta de Vickrey</strong> (segundo precio): el ganador paga el precio del segundo postor más alto, no el suyo. La estrategia dominante es pujar exactamente tu valoración real. No hay ventaja en mentir. Este principio, generalizado, subyace a los algoritmos de asignación de publicidad de Google y a muchos mercados de electricidad.</p>
+      </section>
+
+      <section>
+        <h2>Conceptos clave</h2>
+        <ul class="concept-list">
+          <li>
+            <span class="concept-name">Mecanismo</span>
+            <span class="concept-desc">Un conjunto de reglas que mapea los mensajes de los agentes (sus reportes) a un resultado (asignación + pagos).</span>
+          </li>
+          <li>
+            <span class="concept-name">Compatibilidad de incentivos</span>
+            <span class="concept-desc">Un mecanismo es IC si reportar las preferencias reales es estrategia dominante (o equilibrio de Bayes-Nash). Hace la verdad óptima.</span>
+          </li>
+          <li>
+            <span class="concept-name">Subasta Vickrey</span>
+            <span class="concept-desc">Subasta de segundo precio en sobre cerrado. El ganador paga el precio del segundo postor. Reportar la valoración real es estrategia dominante.</span>
+          </li>
+          <li>
+            <span class="concept-name">Teorema de equivalencia</span>
+            <span class="concept-desc">Bajo ciertas condiciones, todas las subastas estándar (primer precio, segundo precio, inglesa, holandesa) generan el mismo ingreso esperado al vendedor.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Simulador de subastas</h2>
+        <div class="widget-placeholder">
+          <div class="widget-icon">⚙️</div>
+          <h3>Primer precio vs. Vickrey — Fase 4</h3>
+          <p>Fija tu valoración con un slider. La herramienta muestra cómo cambia tu estrategia óptima (bid shading) según el formato de subasta y demuestra por qué en Vickrey siempre conviene pujar la valoración real.</p>
+        </div>
+      </section>
+
+      <div class="notebook-callout">
+        <span class="notebook-callout-icon">📓</span>
+        <div class="notebook-callout-content">
+          <h4>Cuaderno Jupyter — Módulo 10</h4>
+          <p>Deriva el bid óptimo en subasta de primer precio y demuestra el teorema de equivalencia de ingresos. Simula subastas de espectro y compara los resultados con datos históricos de subastas 3G en Europa.</p>
+          <a href="../../notebooks/10_diseno_mecanismos.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
+        </div>
+      </div>
+
+      <nav class="module-nav">
+        <a href="../09-cooperativos/index.html" class="nav-item nav-prev">
+          <span class="nav-direction">← Anterior</span>
+          <span class="nav-title">09 · Juegos Cooperativos</span>
+        </a>
+        <div class="nav-item nav-empty"></div>
+      </nav>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Teoría de Juegos &nbsp;·&nbsp; Licencia MIT &nbsp;·&nbsp;
+         <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub</a></p>
+    </div>
+  </footer>
+
+  <script src="../../js/core/progress.js"></script>
+</body>
+</html>

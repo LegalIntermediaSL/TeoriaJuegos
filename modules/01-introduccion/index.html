@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="module-id" content="01">
+  <title>Pensar estratégicamente — Teoría de Juegos</title>
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="stylesheet" href="../../css/components.css">
+</head>
+<body class="module-page">
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="header-brand">
+        <span class="brand-icon">♟</span>
+        <span class="brand-name">Teoría de Juegos</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../../index.html#modulos">Módulos</a>
+        <a href="../../index.html#notebooks">Notebooks</a>
+        <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="module-main">
+    <div class="content-container">
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Inicio</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Módulo 01 — Pensar estratégicamente</span>
+      </nav>
+
+      <header class="module-header">
+        <div class="module-number">Módulo 01 de 10</div>
+        <h1>Pensar estratégicamente</h1>
+        <p class="subtitle">Qué es un juego formal y en qué se diferencia de una decisión ordinaria</p>
+        <div class="tag-list">
+          <span class="tag">jugadores</span>
+          <span class="tag">estrategias</span>
+          <span class="tag">pagos</span>
+          <span class="tag">interdependencia</span>
+        </div>
+      </header>
+
+      <section>
+        <h2>¿Qué hace diferente a una decisión estratégica?</h2>
+        <p>Decides cuánto abrigo ponerte según el tiempo que hace. El tiempo no reacciona a tu ropa. Eso es una <strong>decisión ordinaria</strong>: el entorno es pasivo.</p>
+        <p>Ahora imagina que estás fijando el precio de tu gasolinera. Hay otra gasolinera enfrente. Si bajas el precio, el rival responde. Su respuesta depende de lo que hagas tú, y lo que hagas tú debería anticipar su respuesta. Eso es una <strong>decisión estratégica</strong>: el entorno son otros agentes que también piensan.</p>
+        <p>La teoría de juegos es la disciplina que estudia este tipo de situaciones con rigor matemático, pero su utilidad va más allá: proporciona un vocabulario y un marco para razonar con claridad en cualquier contexto donde los resultados dependen de las decisiones de más de uno.</p>
+      </section>
+
+      <section>
+        <h2>Los tres elementos de un juego</h2>
+        <p>Formalmente, un juego queda definido por tres ingredientes:</p>
+        <ul class="concept-list">
+          <li>
+            <span class="concept-name">Jugadores</span>
+            <span class="concept-desc">Los agentes que toman decisiones. Pueden ser personas, empresas, países, genes o algoritmos. Lo esencial es que tienen preferencias y eligen.</span>
+          </li>
+          <li>
+            <span class="concept-name">Estrategias</span>
+            <span class="concept-desc">El conjunto de acciones disponibles para cada jugador. Una estrategia puede ser tan simple como "cooperar o traicionar", o tan compleja como un plan contingente completo.</span>
+          </li>
+          <li>
+            <span class="concept-name">Pagos</span>
+            <span class="concept-desc">El resultado que recibe cada jugador según la combinación de estrategias elegidas por todos. Pueden representar dinero, utilidad, supervivencia o cualquier cosa que le importe al jugador.</span>
+          </li>
+        </ul>
+        <p>El objeto central que recoge todo esto es la <strong>matriz de pagos</strong>: una tabla donde las filas son las estrategias de un jugador, las columnas las del otro, y cada celda muestra los pagos resultantes para ambos.</p>
+      </section>
+
+      <section>
+        <h2>¿Es esto un juego? Quiz de clasificación</h2>
+        <p>Antes de formalizar, conviene tener claro el olfato. ¿Cuáles de estas situaciones son juegos estratégicos y cuáles no?</p>
+
+        <div class="widget-placeholder">
+          <div class="widget-icon">🎯</div>
+          <h3>Quiz interactivo — Fase 1</h3>
+          <p>Cinco situaciones. Clasifica cada una como decisión ordinaria o juego estratégico y recibe retroalimentación inmediata con la explicación.</p>
+        </div>
+      </section>
+
+      <div class="notebook-callout">
+        <span class="notebook-callout-icon">📓</span>
+        <div class="notebook-callout-content">
+          <h4>Cuaderno Jupyter — Módulo 01</h4>
+          <p>Representa los tres juegos clásicos de este módulo como matrices numpy. Aprende a leer la matriz de pagos y a extraer los pagos de cualquier perfil de estrategias.</p>
+          <a href="../../notebooks/01_introduccion.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
+        </div>
+      </div>
+
+      <nav class="module-nav">
+        <div class="nav-item nav-empty"></div>
+        <a href="../02-dominancia/index.html" class="nav-item nav-next">
+          <span class="nav-direction">Siguiente →</span>
+          <span class="nav-title">02 · Dominancia</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Teoría de Juegos &nbsp;·&nbsp; Licencia MIT &nbsp;·&nbsp;
+         <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub</a></p>
+    </div>
+  </footer>
+
+  <script src="../../js/core/progress.js"></script>
+</body>
+</html>

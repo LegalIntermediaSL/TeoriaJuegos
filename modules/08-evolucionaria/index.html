@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="module-id" content="08">
+  <title>Teoría Evolutiva — Teoría de Juegos</title>
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="stylesheet" href="../../css/components.css">
+</head>
+<body class="module-page">
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="header-brand">
+        <span class="brand-icon">♟</span>
+        <span class="brand-name">Teoría de Juegos</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../../index.html#modulos">Módulos</a>
+        <a href="../../index.html#notebooks">Notebooks</a>
+        <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="module-main">
+    <div class="content-container">
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Inicio</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Módulo 08 — Teoría Evolutiva</span>
+      </nav>
+
+      <header class="module-header">
+        <div class="module-number">Módulo 08 de 10</div>
+        <h1>Teoría Evolutiva de Juegos</h1>
+        <p class="subtitle">Darwin juega: estrategias que se propagan, mutan y compiten en poblaciones</p>
+        <div class="tag-list">
+          <span class="tag">ESS</span>
+          <span class="tag">replicator dynamics</span>
+          <span class="tag">Halcón-Paloma</span>
+          <span class="tag">selección</span>
+        </div>
+      </header>
+
+      <section>
+        <h2>Sin racionalidad, con selección</h2>
+        <p>La teoría de juegos clásica asume jugadores perfectamente racionales que calculan estrategias óptimas. La teoría evolutiva abandona este supuesto: los jugadores son individuos en una población que simplemente <em>heredan</em> estrategias y se reproducen en función de su éxito.</p>
+        <p>El concepto central es la <strong>Estrategia Evolutivamente Estable (ESS)</strong>, introducida por John Maynard Smith: una estrategia que, si es adoptada por toda la población, no puede ser invadida por ningún mutante. Es el equivalente evolutivo del equilibrio de Nash, pero con una interpretación radicalmente diferente.</p>
+        <p>La <strong>dinámica del replicador</strong> describe cómo cambia la frecuencia de cada estrategia en el tiempo: las que obtienen mayor pago que la media crecen, las que obtienen menos se contraen. El sistema converge hacia la ESS si existe.</p>
+      </section>
+
+      <section>
+        <h2>Conceptos clave</h2>
+        <ul class="concept-list">
+          <li>
+            <span class="concept-name">ESS</span>
+            <span class="concept-desc">Estrategia Evolutivamente Estable: una estrategia que resiste la invasión de mutantes cuando es jugada por casi toda la población.</span>
+          </li>
+          <li>
+            <span class="concept-name">Replicator dynamics</span>
+            <span class="concept-desc">Sistema de ecuaciones diferenciales que describe la evolución de frecuencias de estrategias. Una ODE por estrategia, proporcional a la diferencia entre su pago y el pago medio.</span>
+          </li>
+          <li>
+            <span class="concept-name">Halcón-Paloma</span>
+            <span class="concept-desc">Juego de conflicto de recursos. Halcones pelean, Palomas ceden. La ESS es una mezcla de ambas dependiente del ratio V/C (valor del recurso / coste del combate).</span>
+          </li>
+          <li>
+            <span class="concept-name">Polimorfismo</span>
+            <span class="concept-desc">Cuando la ESS es una mezcla de estrategias, la población converge a una proporción estable de Halcones y Palomas, no a la extinción de ninguna.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Simulador de dinámica de población</h2>
+        <div class="widget-placeholder">
+          <div class="widget-icon">🧬</div>
+          <h3>Replicator dynamics en tiempo real — Fase 3</h3>
+          <p>Configura la distribución inicial de Halcones y Palomas, y los parámetros V y C del juego. Chart.js muestra la evolución de frecuencias y el atractor hacia el que converge la dinámica.</p>
+        </div>
+      </section>
+
+      <div class="notebook-callout">
+        <span class="notebook-callout-icon">📓</span>
+        <div class="notebook-callout-content">
+          <h4>Cuaderno Jupyter — Módulo 08</h4>
+          <p>Implementa las replicator dynamics con <code>scipy.integrate.solve_ivp</code>. Analiza la estabilidad de los equilibrios y visualiza los diagramas de fase para el juego Halcón-Paloma con distintos parámetros V/C.</p>
+          <a href="../../notebooks/08_evolucionaria.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
+        </div>
+      </div>
+
+      <nav class="module-nav">
+        <a href="../07-estrategias-mixtas/index.html" class="nav-item nav-prev">
+          <span class="nav-direction">← Anterior</span>
+          <span class="nav-title">07 · Estrategias Mixtas</span>
+        </a>
+        <a href="../09-cooperativos/index.html" class="nav-item nav-next">
+          <span class="nav-direction">Siguiente →</span>
+          <span class="nav-title">09 · Juegos Cooperativos</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Teoría de Juegos &nbsp;·&nbsp; Licencia MIT &nbsp;·&nbsp;
+         <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub</a></p>
+    </div>
+  </footer>
+
+  <script src="../../js/core/progress.js"></script>
+</body>
+</html>
