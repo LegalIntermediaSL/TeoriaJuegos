@@ -10,8 +10,8 @@ dependencies:
   - matplotlib>=3.8
   - networkx>=3.2
   - jupyter
-  - jupyterlab
-  - ipywidgets
+  - jupyterlab>=4.0
+  - ipywidgets>=8.0
   - pip:
     - nashpy==0.0.21
     - axelrod==4.13.0

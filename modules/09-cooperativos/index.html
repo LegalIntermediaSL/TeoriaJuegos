@@ -36,13 +36,13 @@
   <header class="site-header">
     <div class="container">
       <a href="../../index.html" class="header-brand">
-        <span class="brand-icon">&#9820;</span>
+        <span class="brand-icon">♟</span>
         <span class="brand-name">Teoría de Juegos</span>
       </a>
       <nav class="header-nav">
         <a href="../../index.html#modulos">Módulos</a>
         <a href="../../index.html#notebooks">Notebooks</a>
-        <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub &#8599;</a>
+        <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub ↗</a>
       </nav>
     </div>
   </header>
@@ -52,7 +52,7 @@
 
       <nav class="breadcrumb">
         <a href="../../index.html">Inicio</a>
-        <span class="breadcrumb-sep">&#8250;</span>
+        <span class="breadcrumb-sep">›</span>
         <span>Módulo 09 — Juegos Cooperativos</span>
       </nav>
 
@@ -70,7 +70,7 @@
         <h2>Cooperar para crear valor</h2>
         <p>Hasta ahora los jugadores elegían estrategias de forma independiente. En los <strong>juegos cooperativos</strong> los jugadores pueden formar coaliciones y acordar repartos vinculantes. La pregunta central ya no es qué estrategia elegir, sino <strong>cómo dividir el valor generado</strong> por la cooperación.</p>
         <p>La <strong>función característica</strong> v(S) asigna a cada coalición S el valor que sus miembros pueden garantizarse si cooperan entre sí. La gran coalición (todos los jugadores juntos) suele crear el valor máximo, pero necesitamos un principio para repartirlo de forma justa y estable.</p>
-        <p>El <strong>Valor de Shapley</strong> (Lloyd Shapley, Premio Nobel 2012) es la única solución que satisface simultáneamente cuatro axiomas: eficiencia, simetría, nulidad y aditividad. Para cada jugador i, su Shapley es la media de sus contribuciones marginales en todos los órdenes de entrada posibles.</p>
+        <p>El <strong>Valor de Shapley</strong> (Lloyd Shapley, Premio Nobel 2012) es la única solución que satisface simultáneamente cuatro axiomas: eficiencia, simetría, nulidad y aditividad. Para cada jugador i, su Shapley es la <em>media de sus contribuciones marginales en todos los órdenes de entrada posibles</em>.</p>
         <p>La fórmula: φᵢ(v) = Σ (|S|!(n−|S|−1)!/n!) · (v(S∪{i}) − v(S)), donde la suma recorre todas las coaliciones S que no contienen a i.</p>
       </section>
 
@@ -95,6 +95,7 @@
               <option value="majority">Juego de mayoría</option>
               <option value="gloves">Mercado de guantes</option>
               <option value="uniform">Contribuciones uniformes</option>
+              <option value="airport">Aeropuerto (costes)</option>
               <option value="custom">Personalizado</option>
             </select>
           </div>
@@ -130,7 +131,7 @@
             </div>
           </div>
 
-          <button class="btn btn-primary btn-sm" onclick="calculate()">Calcular valor de Shapley &#8594;</button>
+          <button class="btn btn-primary btn-sm" onclick="calculate()">Calcular valor de Shapley →</button>
 
           <div id="shapley-output" style="display:none;">
             <div class="shapley-results" id="shapley-cards"></div>
@@ -141,7 +142,7 @@
       </section>
 
       <div class="notebook-callout">
-        <span class="notebook-callout-icon">&#128211;</span>
+        <span class="notebook-callout-icon">📓</span>
         <div class="notebook-callout-content">
           <h4>Cuaderno Jupyter — Módulo 09</h4>
           <p>Implementa el valor de Shapley iterando sobre permutaciones. Analiza el juego de aeropuerto, el teorema de Bondareva-Shapley sobre la existencia del core, y la librería <code>gambit</code> para juegos cooperativos.</p>
@@ -151,11 +152,11 @@
 
       <nav class="module-nav">
         <a href="../08-evolucionaria/index.html" class="nav-item nav-prev">
-          <span class="nav-direction">&#8592; Anterior</span>
+          <span class="nav-direction">← Anterior</span>
           <span class="nav-title">08 · Teoría Evolutiva</span>
         </a>
         <a href="../10-mecanismos/index.html" class="nav-item nav-next">
-          <span class="nav-direction">Siguiente &#8594;</span>
+          <span class="nav-direction">Siguiente →</span>
           <span class="nav-title">10 · Diseño de Mecanismos</span>
         </a>
       </nav>
@@ -171,11 +172,13 @@
   </footer>
 
   <script src="../../js/core/progress.js"></script>
+  <script src="../../js/simulations/shapley.js"></script>
   <script>
     const PRESETS = {
       majority: { v1:0, v2:0, v3:0, v12:1, v13:1, v23:1, v123:1 },
       gloves:   { v1:1, v2:0, v3:1, v12:1, v13:2, v23:1, v123:2 },
-      uniform:  { v1:1, v2:1, v3:1, v12:3, v13:3, v23:3, v123:6 }
+      uniform:  { v1:1, v2:1, v3:1, v12:3, v13:3, v23:3, v123:6 },
+      airport:  { v1:0, v2:2, v3:4, v12:2, v13:4, v23:6, v123:6 }
     };
 
     function loadPreset() {
@@ -193,83 +196,75 @@
       document.getElementById('shapley-output').style.display = 'none';
     }
 
-    function coalVal(v, set) {
-      const key = set.slice().sort().join('');
-      if (key === '1')   return v.v1;
-      if (key === '2')   return v.v2;
-      if (key === '3')   return v.v3;
-      if (key === '12')  return v.v12;
-      if (key === '13')  return v.v13;
-      if (key === '23')  return v.v23;
-      if (key === '123') return v.v123;
-      return 0;
-    }
-
-    function shapleyValue(v) {
-      const perms = [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]];
-      const phi = [0, 0, 0];
-      const permDetails = [];
-
-      for (const perm of perms) {
-        let current = [];
-        const marginals = [];
-        for (const player of perm) {
-          const marg = coalVal(v, [...current, player]) - coalVal(v, current);
-          phi[player - 1] += marg;
-          marginals.push({ player, marg });
-          current = [...current, player];
-        }
-        permDetails.push({ perm, marginals });
-      }
-
-      return { phi: phi.map(x => Math.round(x / 6 * 10000) / 10000), permDetails };
+    function getVObj() {
+      return {
+        '1':     +document.getElementById('v1').value   || 0,
+        '2':     +document.getElementById('v2').value   || 0,
+        '3':     +document.getElementById('v3').value   || 0,
+        '1,2':   +document.getElementById('v12').value  || 0,
+        '1,3':   +document.getElementById('v13').value  || 0,
+        '2,3':   +document.getElementById('v23').value  || 0,
+        '1,2,3': +document.getElementById('v123').value || 0
+      };
     }
 
     function calculate() {
-      const v = {
-        v1:   +document.getElementById('v1').value   || 0,
-        v2:   +document.getElementById('v2').value   || 0,
-        v3:   +document.getElementById('v3').value   || 0,
-        v12:  +document.getElementById('v12').value  || 0,
-        v13:  +document.getElementById('v13').value  || 0,
-        v23:  +document.getElementById('v23').value  || 0,
-        v123: +document.getElementById('v123').value || 0
-      };
+      const vObj = getVObj();
+      const players = [1, 2, 3];
 
-      const { phi, permDetails } = shapleyValue(v);
-      const total = phi[0] + phi[1] + phi[2];
+      // Usar ShapleyCalculator de shapley.js
+      const phi = ShapleyCalculator.computeFromObject(vObj, players);
+      const v = (coalition) => vObj[coalition.slice().sort().join(',')] ?? 0;
+      const eff = ShapleyCalculator.checkEfficiency(phi, v, players);
 
-      // Player cards
+      const total = eff.sum;
+
+      // Tarjetas de jugadores
       const colors = ['#1a3a5c', '#b85c00', '#2d7a50'];
-      document.getElementById('shapley-cards').innerHTML = phi.map((p, i) => `
+      document.getElementById('shapley-cards').innerHTML = players.map((p, i) => `
         <div class="player-card">
-          <div class="player-label">Jugador ${i+1}</div>
-          <div class="shapley-val" style="color:${colors[i]}">${p.toFixed(4)}</div>
-          <div class="shapley-pct">${total > 0.0001 ? (p/total*100).toFixed(1) + '% del total' : '—'}</div>
+          <div class="player-label">Jugador ${p}</div>
+          <div class="shapley-val" style="color:${colors[i]}">${phi[p].toFixed(4)}</div>
+          <div class="shapley-pct">${total > 0.0001 ? (phi[p]/total*100).toFixed(1) + '% del total' : '—'}</div>
         </div>`).join('');
 
-      // Breakdown table
+      // Breakdown por permutaciones
+      const perms = ShapleyCalculator._permutations(players);
       let bk = '--- Contribuciones marginales por orden de entrada ---\n\n';
-      for (const { perm, marginals } of permDetails) {
-        const parts = marginals.map(m => `J${m.player}:+${m.marg.toFixed(2)}`).join('  ');
-        bk += `Orden ${perm.join('→')}:  ${parts}\n`;
+      for (const perm of perms) {
+        let current = [];
+        const parts = perm.map(player => {
+          const before = vObj[current.slice().sort().join(',')] ?? 0;
+          current = [...current, player];
+          const after = vObj[current.slice().sort().join(',')] ?? 0;
+          return `J${player}:+${(after-before).toFixed(2)}`;
+        });
+        bk += `Orden ${perm.join('→')}:  ${parts.join('  ')}\n`;
       }
-      bk += `\n--- Valor de Shapley (media) ---\n`;
-      bk += `φ₁ = ${phi[0].toFixed(4)}   φ₂ = ${phi[1].toFixed(4)}   φ₃ = ${phi[2].toFixed(4)}\n`;
-      bk += `Suma = ${total.toFixed(4)}   v(N) = ${v.v123}`;
+      bk += `\n--- Valor de Shapley (media sobre ${perms.length} permutaciones) ---\n`;
+      players.forEach(p => { bk += `φ(${p}) = ${phi[p].toFixed(4)}   `; });
+      bk += `\nΣ = ${total.toFixed(4)}   v(N) = ${vObj['1,2,3']}`;
       document.getElementById('shapley-breakdown').textContent = bk;
 
-      // Axiom checks
-      const eff = Math.abs(total - v.v123) < 0.001;
-      const superadd = v.v12 >= v.v1 + v.v2 && v.v13 >= v.v1 + v.v3 && v.v23 >= v.v2 + v.v3
-                    && v.v123 >= v.v12 + v.v3 && v.v123 >= v.v13 + v.v2 && v.v123 >= v.v23 + v.v1;
-      const inCore = phi[0] >= v.v1 - 0.001 && phi[1] >= v.v2 - 0.001 && phi[2] >= v.v3 - 0.001
-                  && phi[0]+phi[1] >= v.v12 - 0.001 && phi[0]+phi[2] >= v.v13 - 0.001 && phi[1]+phi[2] >= v.v23 - 0.001;
+      // Comprobación de axiomas
+      const v123 = vObj['1,2,3'];
+      const superadd =
+        vObj['1,2']   >= (vObj['1']   + vObj['2'])   - 0.001 &&
+        vObj['1,3']   >= (vObj['1']   + vObj['3'])   - 0.001 &&
+        vObj['2,3']   >= (vObj['2']   + vObj['3'])   - 0.001 &&
+        v123          >= (vObj['1,2'] + vObj['3'])   - 0.001 &&
+        v123          >= (vObj['1,3'] + vObj['2'])   - 0.001 &&
+        v123          >= (vObj['2,3'] + vObj['1'])   - 0.001;
+      const inCore =
+        phi[1] >= vObj['1'] - 0.001 && phi[2] >= vObj['2'] - 0.001 && phi[3] >= vObj['3'] - 0.001 &&
+        phi[1]+phi[2] >= vObj['1,2'] - 0.001 &&
+        phi[1]+phi[3] >= vObj['1,3'] - 0.001 &&
+        phi[2]+phi[3] >= vObj['2,3'] - 0.001;
 
       const axioms = [
-        { ok: eff,      label: 'Eficiencia', desc: `φ₁+φ₂+φ₃ = ${total.toFixed(4)} ${eff ? '= v(N) ✓' : '≠ v(N) — comprueba los valores'}` },
-        { ok: superadd, label: 'Superaditividad', desc: superadd ? 'La función característica satisface superaditividad (cooperar siempre es racional)' : 'Atención: la función no es superaditiva — puede que no sea racional formar la gran coalición' },
-        { ok: inCore,   label: 'Estabilidad (core)', desc: inCore ? 'El reparto de Shapley está en el core: ninguna coalición prefiere separarse' : 'El reparto de Shapley queda fuera del core — puede haber inestabilidad en la coalición' }
+        { ok: eff.ok,     label: 'Eficiencia',        desc: `φ₁+φ₂+φ₃ = ${total.toFixed(4)} ${eff.ok ? '= v(N) ✓' : `≠ v(N) = ${v123}`}` },
+        { ok: superadd,   label: 'Superaditividad',    desc: superadd ? 'La función característica satisface superaditividad (cooperar es racional)' : 'Atención: la función no es superaditiva — puede que no sea racional formar la gran coalición' },
+        { ok: inCore,     label: 'Estabilidad (core)', desc: inCore ? 'El reparto de Shapley está en el core: ninguna coalición prefiere separarse' : 'El reparto de Shapley queda fuera del core — puede haber inestabilidad' }
       ];
 
       document.getElementById('axiom-check').innerHTML = axioms.map(a => `

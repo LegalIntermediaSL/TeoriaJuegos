@@ -17,11 +17,10 @@
     .auction-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin-top: var(--space-5); }
     .auction-table th { background: var(--primary); color: white; padding: var(--space-2) var(--space-3); text-align: center; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
     .auction-table td { padding: var(--space-2) var(--space-3); text-align: center; border-bottom: 1px solid var(--border); font-family: var(--font-mono); font-size: 0.9rem; }
-    .auction-table tr.you-row td { background: #f0f5ff; font-weight: 700; }
-    .auction-table tr.winner td { color: #2d7a50; font-weight: 700; }
+    .auction-table tr.you-row td { background: #f0f5ff; font-weight: 700; color: var(--primary); }
     .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-top: var(--space-5); }
     .result-card { background: var(--bg); border: 2px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-4); }
-    .result-card h4 { font-size: 0.9rem; color: var(--text-muted); margin-bottom: var(--space-3); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .result-card h4 { font-size: 0.82rem; color: var(--text-muted); margin-bottom: var(--space-3); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
     .result-card .big-val { font-size: 1.8rem; font-weight: 700; font-family: var(--font-mono); }
     .result-card .sub-val { font-size: 0.8rem; color: var(--text-muted); margin-top: var(--space-1); }
     .fp-card { border-color: #1a3a5c; }
@@ -29,7 +28,7 @@
     .vk-card { border-color: #b85c00; }
     .vk-card .big-val { color: #b85c00; }
     .equiv-box { margin-top: var(--space-4); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); font-size: 0.875rem; }
-    .equiv-ok  { background: #edfaf1; border-left: 3px solid #2d7a50; color: #1a4030; }
+    .equiv-ok   { background: #edfaf1; border-left: 3px solid #2d7a50; color: #1a4030; }
     .equiv-note { background: #f3eeff; border-left: 3px solid #8b5cf6; color: #3b1a7a; }
     @media (max-width: 480px) { .auction-controls { grid-template-columns: 1fr; } .result-grid { grid-template-columns: 1fr; } }
   </style>
@@ -39,13 +38,13 @@
   <header class="site-header">
     <div class="container">
       <a href="../../index.html" class="header-brand">
-        <span class="brand-icon">&#9820;</span>
+        <span class="brand-icon">♟</span>
         <span class="brand-name">Teoría de Juegos</span>
       </a>
       <nav class="header-nav">
         <a href="../../index.html#modulos">Módulos</a>
         <a href="../../index.html#notebooks">Notebooks</a>
-        <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub &#8599;</a>
+        <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub ↗</a>
       </nav>
     </div>
   </header>
@@ -55,7 +54,7 @@
 
       <nav class="breadcrumb">
         <a href="../../index.html">Inicio</a>
-        <span class="breadcrumb-sep">&#8250;</span>
+        <span class="breadcrumb-sep">›</span>
         <span>Módulo 10 — Diseño de Mecanismos</span>
       </nav>
 
@@ -73,23 +72,23 @@
         <h2>Diseñar los incentivos</h2>
         <p>El diseño de mecanismos invierte la pregunta habitual de la teoría de juegos. En lugar de analizar el equilibrio dado un juego, pregunta: <strong>¿qué reglas de juego producen el resultado deseado?</strong> El diseñador es un arquitecto de incentivos.</p>
         <p>Las <strong>subastas</strong> son el laboratorio clásico. Cada pujador tiene una valoración privada v que sólo él conoce. ¿Qué formato maximiza el ingreso del vendedor? ¿Cuál asigna el bien al que más lo valora?</p>
-        <p>El resultado más sorprendente es el <strong>Teorema de Equivalencia de Ingresos</strong> (Myerson, 1981): bajo condiciones estándar, todos los formatos de subasta con la misma asignación esperada generan el mismo ingreso esperado para el vendedor. La subasta de primer precio y la de Vickrey son ejemplo de este principio.</p>
-        <p>La <strong>subasta de Vickrey</strong> (segundo precio) tiene una propiedad notable: decir la verdad —pujar tu valoración real— es una estrategia dominante. No necesitas estrategizar. En la subasta de primer precio, en cambio, debes bajar tu puja óptimamente.</p>
+        <p>El resultado más sorprendente es el <strong>Teorema de Equivalencia de Ingresos</strong> (Myerson, 1981): bajo condiciones estándar, todos los formatos de subasta con la misma asignación esperada generan el mismo ingreso esperado para el vendedor.</p>
+        <p>La <strong>subasta de Vickrey</strong> (segundo precio) es compatible con los incentivos: decir la verdad —pujar la valoración real— es una estrategia dominante. En la subasta de primer precio, en cambio, debes bajar tu puja óptimamente: b*(v) = v·(n−1)/n con n pujadores y valoraciones uniformes.</p>
       </section>
 
       <section>
         <h2>Conceptos clave</h2>
         <ul class="concept-list">
-          <li><span class="concept-name">Subasta primer precio</span><span class="concept-desc">Gana el mayor pujador y paga su propia puja. Estrategia óptima: b*(v) = v·(n−1)/n con n pujadores y valoraciones uniformes en [0,1].</span></li>
-          <li><span class="concept-name">Subasta Vickrey (2º precio)</span><span class="concept-desc">Gana el mayor pujador pero paga la segunda puja más alta. Estrategia dominante: pujar v (la verdad).</span></li>
+          <li><span class="concept-name">Subasta primer precio</span><span class="concept-desc">Gana el mayor pujador y paga su propia puja. Estrategia óptima: b*(v) = v·(n−1)/n con n pujadores, valoraciones uniformes en [0, vMax].</span></li>
+          <li><span class="concept-name">Subasta Vickrey (2.º precio)</span><span class="concept-desc">Gana el mayor pujador pero paga la segunda puja más alta. Estrategia dominante: pujar la valoración verdadera.</span></li>
           <li><span class="concept-name">Equivalencia de ingresos</span><span class="concept-desc">Con valoraciones iid, todos los formatos eficientes generan el mismo ingreso esperado para el vendedor.</span></li>
-          <li><span class="concept-name">Compatibilidad de incentivos</span><span class="concept-desc">Un mecanismo es IC si decir la verdad es una estrategia de Nash dominante para cada agente.</span></li>
+          <li><span class="concept-name">Compatibilidad de incentivos</span><span class="concept-desc">Un mecanismo es IC si decir la verdad es una estrategia dominante para cada agente.</span></li>
         </ul>
       </section>
 
       <section>
         <h2>Simulador de subastas</h2>
-        <p>Ajusta tu valoración y el número de competidores. La simulación muestra la puja óptima en cada formato y compara ingresos del vendedor en múltiples rondas.</p>
+        <p>Ajusta tu valoración y el número de competidores. La simulación compara el ingreso del vendedor en ambos formatos sobre múltiples rondas, demostrando la equivalencia de ingresos.</p>
 
         <div class="widget-frame">
           <div class="auction-controls">
@@ -99,13 +98,13 @@
               <span class="ctrl-val" id="v-val">70</span>
             </div>
             <div class="ctrl-row">
-              <label>Número de competidores (n)</label>
+              <label>Número total de pujadores (n)</label>
               <input type="range" id="n-slider" min="2" max="10" value="4" step="1" oninput="updateAuction()">
-              <span class="ctrl-val" id="n-val">4 pujadores</span>
+              <span class="ctrl-val" id="n-val">4</span>
             </div>
             <div class="ctrl-row">
               <label>Rondas de simulación</label>
-              <input type="range" id="r-slider" min="100" max="5000" value="1000" step="100" oninput="updateAuction()">
+              <input type="range" id="r-slider" min="200" max="5000" value="1000" step="200" oninput="updateAuction()">
               <span class="ctrl-val" id="r-val">1000</span>
             </div>
             <div class="ctrl-row">
@@ -120,7 +119,7 @@
               <tr>
                 <th>Pujador</th>
                 <th>Valoración</th>
-                <th>Puja 1er precio</th>
+                <th>Puja 1.er precio</th>
                 <th>Puja Vickrey</th>
               </tr>
             </thead>
@@ -133,17 +132,17 @@
       </section>
 
       <div class="notebook-callout">
-        <span class="notebook-callout-icon">&#128211;</span>
+        <span class="notebook-callout-icon">📓</span>
         <div class="notebook-callout-content">
           <h4>Cuaderno Jupyter — Módulo 10</h4>
-          <p>Demuestra el teorema de equivalencia de ingresos numéricamente. Implementa el mecanismo de Myerson para la subasta óptima con una distribución asimétrica y analiza el problema del principal-agente.</p>
+          <p>Demuestra el teorema de equivalencia de ingresos numéricamente. Implementa el mecanismo de Myerson para la subasta óptima con distribución asimétrica y analiza el problema del principal-agente.</p>
           <a href="../../notebooks/10_diseno_mecanismos.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
         </div>
       </div>
 
       <nav class="module-nav">
         <a href="../09-cooperativos/index.html" class="nav-item nav-prev">
-          <span class="nav-direction">&#8592; Anterior</span>
+          <span class="nav-direction">← Anterior</span>
           <span class="nav-title">09 · Juegos Cooperativos</span>
         </a>
         <div class="nav-item nav-empty"></div>
@@ -160,97 +159,81 @@
   </footer>
 
   <script src="../../js/core/progress.js"></script>
+  <script src="../../js/simulations/auction.js"></script>
   <script>
     function updateAuction() {
-      const v    = +document.getElementById('v-slider').value;
+      const myV  = +document.getElementById('v-slider').value;
       const n    = +document.getElementById('n-slider').value;
-      const R    = +document.getElementById('r-slider').value;
+      const reps = +document.getElementById('r-slider').value;
       const vMax = +document.getElementById('max-slider').value;
 
-      document.getElementById('v-val').textContent  = v;
-      document.getElementById('n-val').textContent  = `${n} pujadores`;
-      document.getElementById('r-val').textContent  = R;
+      document.getElementById('v-val').textContent  = myV;
+      document.getElementById('n-val').textContent  = n;
+      document.getElementById('r-val').textContent  = reps;
       document.getElementById('max-val').textContent = vMax + ']';
 
-      // Generate competitors with random valuations uniform [0, vMax]
-      const bidders = [{ id: 'Tú', val: v, isYou: true }];
-      for (let i = 1; i < n; i++) {
-        bidders.push({ id: `Rival ${i}`, val: Math.round(Math.random() * vMax), isYou: false });
-      }
+      // Generar rivals con valoraciones aleatorias en [0, vMax]
+      // Usamos AuctionSimulator para los rivals y colocamos al usuario en posición 0
+      const rivals = AuctionSimulator.generateBidders(n - 1, vMax);
+      const allBidders = [{ id: 0, valuation: myV, isYou: true },
+                          ...rivals.map(b => ({ ...b, isYou: false }))];
 
-      // Optimal bid in first-price: b*(v) = v * (n-1)/n (for Uniform[0, vMax])
-      const fpBid = v => v * (n - 1) / n;
-
-      // Render table
+      // Tabla de pujas para esta ronda
       const tbody = document.getElementById('auction-tbody');
-      tbody.innerHTML = bidders.map(b => {
-        const fp = b.isYou ? fpBid(b.val) : fpBid(b.val);
-        const vk = b.val; // truth-telling dominates
-        const fp_disp = fp.toFixed(1);
-        const vk_disp = vk.toFixed(1);
+      tbody.innerHTML = allBidders.map(b => {
+        const fpBid = AuctionSimulator.optimalFirstPriceBid(b.valuation, n);
+        const vkBid = b.valuation; // verdad dominante en Vickrey
         return `<tr class="${b.isYou ? 'you-row' : ''}">
-          <td>${b.id}</td>
-          <td>${b.val}</td>
-          <td>${fp_disp}</td>
-          <td>${vk_disp}</td>
+          <td>${b.isYou ? 'Tú' : `Rival ${b.id}`}</td>
+          <td>${b.valuation.toFixed(1)}</td>
+          <td>${fpBid.toFixed(1)}</td>
+          <td>${vkBid.toFixed(1)}</td>
         </tr>`;
       }).join('');
 
-      // Determine winner in this round
-      const fpWinner = bidders.reduce((a, b) => fpBid(a.val) >= fpBid(b.val) ? a : b);
-      const vkWinner = bidders.reduce((a, b) => b.val >= a.val ? b : a);
+      // Simulación de revenue usando AuctionSimulator
+      const rev = AuctionSimulator.compareRevenue(n, reps);
 
-      // Simulation over R rounds
-      let fpRevSum = 0, vkRevSum = 0;
+      // Contar cuántas veces gana el usuario en cada formato
+      // (simulamos de nuevo con la valoración fija del usuario)
       let fpYouWins = 0, vkYouWins = 0;
-
-      for (let r = 0; r < R; r++) {
-        const vals = Array.from({length: n}, () => Math.random() * vMax);
-        vals[0] = v; // keep own value fixed
-
-        // First price: each bids v*(n-1)/n
-        const fpBids = vals.map(x => x * (n-1) / n);
-        const fpMax = Math.max(...fpBids);
-        const fpWinIdx = fpBids.indexOf(fpMax);
-        fpRevSum += fpMax;
-        if (fpWinIdx === 0) fpYouWins++;
-
-        // Vickrey: bid truth
-        const vkMax = Math.max(...vals);
-        const vkWinIdx = vals.indexOf(vkMax);
-        const vkSecond = vals.slice().sort((a,b)=>b-a)[1];
-        vkRevSum += vkSecond;
-        if (vkWinIdx === 0) vkYouWins++;
+      const N_SAMPLE = Math.min(reps, 2000);
+      for (let i = 0; i < N_SAMPLE; i++) {
+        const rivals_i = AuctionSimulator.generateBidders(n - 1, vMax, i);
+        const bidders_fp = [{ id: 0, valuation: myV }, ...rivals_i];
+        const bidders_vk = [{ id: 0, valuation: myV }, ...rivals_i];
+        const fp_res = AuctionSimulator.runFirstPrice(bidders_fp);
+        const vk_res = AuctionSimulator.runVickrey(bidders_vk);
+        if (fp_res.winnerId === 0) fpYouWins++;
+        if (vk_res.winnerId === 0) vkYouWins++;
       }
 
-      const fpRevAvg = fpRevSum / R;
-      const vkRevAvg = vkRevSum / R;
-      const diff = Math.abs(fpRevAvg - vkRevAvg);
-      const pctDiff = diff / Math.max(fpRevAvg, vkRevAvg) * 100;
-
+      const fpBidYou = AuctionSimulator.optimalFirstPriceBid(myV, n);
       document.getElementById('result-grid').innerHTML = `
         <div class="result-card fp-card">
           <h4>Subasta Primer Precio</h4>
-          <div class="big-val">${fpRevAvg.toFixed(2)}</div>
-          <div class="sub-val">Ingreso medio del vendedor (${R} rondas)</div>
-          <div class="sub-val" style="margin-top:8px">Tu puja óptima: <strong>${fpBid(v).toFixed(1)}</strong></div>
-          <div class="sub-val">Ganaste en: <strong>${(fpYouWins/R*100).toFixed(1)}%</strong> de rondas</div>
+          <div class="big-val">${rev.firstPriceAvg.toFixed(2)}</div>
+          <div class="sub-val">Ingreso medio del vendedor (${reps} rondas)</div>
+          <div class="sub-val" style="margin-top:8px">Tu puja óptima: <strong>${fpBidYou}</strong></div>
+          <div class="sub-val">Ganas en aprox. <strong>${(fpYouWins/N_SAMPLE*100).toFixed(1)}%</strong> de rondas</div>
         </div>
         <div class="result-card vk-card">
-          <h4>Subasta Vickrey (2º precio)</h4>
-          <div class="big-val">${vkRevAvg.toFixed(2)}</div>
-          <div class="sub-val">Ingreso medio del vendedor (${R} rondas)</div>
-          <div class="sub-val" style="margin-top:8px">Tu puja óptima: <strong>${v}</strong> (verdad)</div>
-          <div class="sub-val">Ganaste en: <strong>${(vkYouWins/R*100).toFixed(1)}%</strong> de rondas</div>
+          <h4>Subasta Vickrey (2.º precio)</h4>
+          <div class="big-val">${rev.vickreyAvg.toFixed(2)}</div>
+          <div class="sub-val">Ingreso medio del vendedor (${reps} rondas)</div>
+          <div class="sub-val" style="margin-top:8px">Tu puja óptima: <strong>${myV}</strong> (verdad)</div>
+          <div class="sub-val">Ganas en aprox. <strong>${(vkYouWins/N_SAMPLE*100).toFixed(1)}%</strong> de rondas</div>
         </div>`;
 
+      const diff = Math.abs(rev.firstPriceAvg - rev.vickreyAvg);
+      const pctDiff = diff / Math.max(rev.firstPriceAvg, rev.vickreyAvg) * 100;
       const cls = pctDiff < 5 ? 'equiv-ok' : 'equiv-note';
-      const symbol = pctDiff < 5 ? '✓' : '~';
       document.getElementById('equiv-note').innerHTML = `<div class="equiv-box ${cls}">
-        ${symbol} <strong>Equivalencia de ingresos:</strong> Diferencia entre formatos = ${diff.toFixed(2)} (${pctDiff.toFixed(1)}%).
+        ${pctDiff < 5 ? '✓' : '~'} <strong>Equivalencia de ingresos:</strong>
+        Diferencia entre formatos = ${diff.toFixed(2)} (${pctDiff.toFixed(1)}%).
         ${pctDiff < 5
           ? 'Los ingresos convergen: el teorema de equivalencia de ingresos se confirma.'
-          : 'Con pocos pujadores o valoraciones fijas la varianza es alta — aumenta las rondas para ver la convergencia.'}
+          : 'Con pocos pujadores la varianza es alta — aumenta las rondas para ver la convergencia.'}
       </div>`;
 
       Progress.completeCurrentModule();
