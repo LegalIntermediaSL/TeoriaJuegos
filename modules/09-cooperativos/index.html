@@ -7,19 +7,42 @@
   <title>Juegos Cooperativos — Teoría de Juegos</title>
   <link rel="stylesheet" href="../../css/main.css">
   <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    .widget-frame { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-6); margin: var(--space-8) 0; }
+    .coalition-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-4); }
+    .coalition-input { display: flex; flex-direction: column; gap: var(--space-1); }
+    .coalition-input label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .coalition-input input { width: 100%; padding: 0.45rem 0.7rem; border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 1.05rem; font-weight: 700; font-family: var(--font-mono); color: var(--primary); background: var(--bg); text-align: center; }
+    .coalition-input input:focus { outline: 2px solid var(--primary); border-color: var(--primary); }
+    .preset-row { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; margin-bottom: var(--space-4); }
+    .preset-row label { font-size: 0.875rem; font-weight: 600; color: var(--text-muted); }
+    .preset-row select { padding: 0.35rem 0.8rem; border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 0.875rem; background: var(--surface); color: var(--text); }
+    .shapley-results { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-top: var(--space-5); }
+    .player-card { background: var(--bg); border: 2px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-4); text-align: center; }
+    .player-label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; color: var(--text-muted); margin-bottom: var(--space-2); }
+    .shapley-val { font-size: 2rem; font-weight: 700; font-family: var(--font-mono); }
+    .shapley-pct { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+    .breakdown-box { margin-top: var(--space-5); padding: var(--space-4); background: var(--code-bg); border-radius: var(--radius-md); font-size: 0.82rem; font-family: var(--font-mono); color: var(--text-muted); line-height: 1.8; white-space: pre-wrap; }
+    .axiom-check { margin-top: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2); }
+    .axiom-item { display: flex; gap: var(--space-3); align-items: center; padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); font-size: 0.875rem; }
+    .axiom-ok   { background: #edfaf1; color: #1a4030; }
+    .axiom-warn { background: #fff4e8; color: #5a2e00; }
+    .axiom-icon { font-weight: 700; min-width: 1.2rem; }
+    @media (max-width: 480px) { .coalition-grid { grid-template-columns: 1fr; } .shapley-results { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body class="module-page">
 
   <header class="site-header">
     <div class="container">
       <a href="../../index.html" class="header-brand">
-        <span class="brand-icon">♟</span>
+        <span class="brand-icon">&#9820;</span>
         <span class="brand-name">Teoría de Juegos</span>
       </a>
       <nav class="header-nav">
         <a href="../../index.html#modulos">Módulos</a>
         <a href="../../index.html#notebooks">Notebooks</a>
-        <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://github.com/LegalIntermediaSL/TeoriaJuegos" target="_blank" rel="noopener">GitHub &#8599;</a>
       </nav>
     </div>
   </header>
@@ -29,76 +52,110 @@
 
       <nav class="breadcrumb">
         <a href="../../index.html">Inicio</a>
-        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-sep">&#8250;</span>
         <span>Módulo 09 — Juegos Cooperativos</span>
       </nav>
 
       <header class="module-header">
         <div class="module-number">Módulo 09 de 10</div>
-        <h1>Juegos Cooperativos</h1>
-        <p class="subtitle">Coaliciones y el valor de Shapley: cómo repartir lo que se gana juntos</p>
+        <h1>Juegos Cooperativos y Valor de Shapley</h1>
+        <p class="subtitle">¿Cómo repartir de forma justa lo que se genera en equipo?</p>
         <div class="tag-list">
-          <span class="tag">coaliciones</span>
-          <span class="tag">valor de Shapley</span>
-          <span class="tag">núcleo</span>
-          <span class="tag">función característica</span>
+          <span class="tag">coaliciones</span><span class="tag">Shapley</span>
+          <span class="tag">core</span><span class="tag">reparto justo</span>
         </div>
       </header>
 
       <section>
-        <h2>La pregunta cambia: ¿cómo repartimos?</h2>
-        <p>En los juegos no cooperativos, la pregunta es <em>qué estrategia elijo</em>. En los cooperativos, los jugadores pueden firmar acuerdos vinculantes y la pregunta es <em>qué reparto es justo y estable</em>. La unidad de análisis es la coalición, no el individuo.</p>
-        <p>Un juego cooperativo se describe mediante la <strong>función característica</strong> v(S): para cada subconjunto S de jugadores, cuánto puede ganar esa coalición actuando junta. El problema central es distribuir v(N) —el valor de la coalición completa— de forma que nadie tenga incentivo a separarse.</p>
-        <p>El <strong>valor de Shapley</strong>, propuesto en 1953, ofrece una solución elegante: el pago de cada jugador es su contribución marginal promedia sobre todas las formas posibles de ordenar a los jugadores. Es el único reparto que satisface simultáneamente cuatro axiomas de equidad: eficiencia, simetría, propiedad del jugador nulo y aditividad.</p>
+        <h2>Cooperar para crear valor</h2>
+        <p>Hasta ahora los jugadores elegían estrategias de forma independiente. En los <strong>juegos cooperativos</strong> los jugadores pueden formar coaliciones y acordar repartos vinculantes. La pregunta central ya no es qué estrategia elegir, sino <strong>cómo dividir el valor generado</strong> por la cooperación.</p>
+        <p>La <strong>función característica</strong> v(S) asigna a cada coalición S el valor que sus miembros pueden garantizarse si cooperan entre sí. La gran coalición (todos los jugadores juntos) suele crear el valor máximo, pero necesitamos un principio para repartirlo de forma justa y estable.</p>
+        <p>El <strong>Valor de Shapley</strong> (Lloyd Shapley, Premio Nobel 2012) es la única solución que satisface simultáneamente cuatro axiomas: eficiencia, simetría, nulidad y aditividad. Para cada jugador i, su Shapley es la media de sus contribuciones marginales en todos los órdenes de entrada posibles.</p>
+        <p>La fórmula: φᵢ(v) = Σ (|S|!(n−|S|−1)!/n!) · (v(S∪{i}) − v(S)), donde la suma recorre todas las coaliciones S que no contienen a i.</p>
       </section>
 
       <section>
         <h2>Conceptos clave</h2>
         <ul class="concept-list">
-          <li>
-            <span class="concept-name">Función característica</span>
-            <span class="concept-desc">v(S) = valor que puede garantizarse la coalición S. Define el juego cooperativo sin especificar estrategias individuales.</span>
-          </li>
-          <li>
-            <span class="concept-name">Núcleo</span>
-            <span class="concept-desc">Conjunto de repartos donde ninguna coalición prefiere separarse. Puede ser vacío (no siempre existe un reparto estable).</span>
-          </li>
-          <li>
-            <span class="concept-name">Valor de Shapley</span>
-            <span class="concept-desc">El pago justo de cada jugador: su contribución marginal media. Único, eficiente y axiomáticamente fundamentado.</span>
-          </li>
-          <li>
-            <span class="concept-name">Aplicaciones</span>
-            <span class="concept-desc">Reparto de costes en infraestructura compartida, poder de voto en parlamentos (índice de Shapley-Shubik), distribución de beneficios en joint ventures.</span>
-          </li>
+          <li><span class="concept-name">Función característica</span><span class="concept-desc">v(S) es el valor garantizable por la coalición S. Se asume superaditividad: v(S∪T) ≥ v(S) + v(T).</span></li>
+          <li><span class="concept-name">Valor de Shapley</span><span class="concept-desc">Contribución marginal media de cada jugador promediada sobre todos los órdenes de entrada. Única solución con los 4 axiomas de Shapley.</span></li>
+          <li><span class="concept-name">Eficiencia</span><span class="concept-desc">Los pagos de Shapley suman exactamente v({1,2,3}): todo el valor de la gran coalición se reparte.</span></li>
+          <li><span class="concept-name">Core</span><span class="concept-desc">Conjunto de repartos tales que ninguna coalición preferiría separarse. Si el core es vacío, cualquier reparto es inestable.</span></li>
         </ul>
       </section>
 
       <section>
-        <h2>Calculadora del valor de Shapley</h2>
-        <div class="widget-placeholder">
-          <div class="widget-icon">🤝</div>
-          <h3>Calculadora Shapley para 3–4 jugadores — Fase 4</h3>
-          <p>Define la función característica para cada coalición posible. El algoritmo calcula el valor de Shapley mostrando la contribución marginal de cada jugador en cada ordenación.</p>
+        <h2>Calculadora de Valor de Shapley</h2>
+        <p>Introduce los valores de cada coalición posible. Pulsa <strong>Calcular</strong> para obtener el reparto de Shapley y verificar los axiomas.</p>
+
+        <div class="widget-frame">
+          <div class="preset-row">
+            <label>Ejemplo:</label>
+            <select id="preset-sel" onchange="loadPreset()">
+              <option value="majority">Juego de mayoría</option>
+              <option value="gloves">Mercado de guantes</option>
+              <option value="uniform">Contribuciones uniformes</option>
+              <option value="custom">Personalizado</option>
+            </select>
+          </div>
+
+          <div class="coalition-grid">
+            <div class="coalition-input">
+              <label>v({1}) — Jugador 1 solo</label>
+              <input type="number" id="v1" value="0" step="0.5" oninput="onInput()">
+            </div>
+            <div class="coalition-input">
+              <label>v({2}) — Jugador 2 solo</label>
+              <input type="number" id="v2" value="0" step="0.5" oninput="onInput()">
+            </div>
+            <div class="coalition-input">
+              <label>v({3}) — Jugador 3 solo</label>
+              <input type="number" id="v3" value="0" step="0.5" oninput="onInput()">
+            </div>
+            <div class="coalition-input">
+              <label>v({1,2}) — Jugadores 1 y 2</label>
+              <input type="number" id="v12" value="1" step="0.5" oninput="onInput()">
+            </div>
+            <div class="coalition-input">
+              <label>v({1,3}) — Jugadores 1 y 3</label>
+              <input type="number" id="v13" value="1" step="0.5" oninput="onInput()">
+            </div>
+            <div class="coalition-input">
+              <label>v({2,3}) — Jugadores 2 y 3</label>
+              <input type="number" id="v23" value="1" step="0.5" oninput="onInput()">
+            </div>
+            <div class="coalition-input" style="grid-column: 1/-1;">
+              <label>v({1,2,3}) — Gran coalición</label>
+              <input type="number" id="v123" value="1" step="0.5" oninput="onInput()">
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-sm" onclick="calculate()">Calcular valor de Shapley &#8594;</button>
+
+          <div id="shapley-output" style="display:none;">
+            <div class="shapley-results" id="shapley-cards"></div>
+            <div class="breakdown-box" id="shapley-breakdown"></div>
+            <div class="axiom-check" id="axiom-check"></div>
+          </div>
         </div>
       </section>
 
       <div class="notebook-callout">
-        <span class="notebook-callout-icon">📓</span>
+        <span class="notebook-callout-icon">&#128211;</span>
         <div class="notebook-callout-content">
           <h4>Cuaderno Jupyter — Módulo 09</h4>
-          <p>Implementa el valor de Shapley desde la fórmula combinatoria. Aplícalo a un caso de reparto de infraestructura hídrica entre tres municipios y a un sistema de votación parlamentaria con escaños ponderados.</p>
+          <p>Implementa el valor de Shapley iterando sobre permutaciones. Analiza el juego de aeropuerto, el teorema de Bondareva-Shapley sobre la existencia del core, y la librería <code>gambit</code> para juegos cooperativos.</p>
           <a href="../../notebooks/09_cooperativos_shapley.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
         </div>
       </div>
 
       <nav class="module-nav">
         <a href="../08-evolucionaria/index.html" class="nav-item nav-prev">
-          <span class="nav-direction">← Anterior</span>
+          <span class="nav-direction">&#8592; Anterior</span>
           <span class="nav-title">08 · Teoría Evolutiva</span>
         </a>
         <a href="../10-mecanismos/index.html" class="nav-item nav-next">
-          <span class="nav-direction">Siguiente →</span>
+          <span class="nav-direction">Siguiente &#8594;</span>
           <span class="nav-title">10 · Diseño de Mecanismos</span>
         </a>
       </nav>
@@ -114,5 +171,118 @@
   </footer>
 
   <script src="../../js/core/progress.js"></script>
+  <script>
+    const PRESETS = {
+      majority: { v1:0, v2:0, v3:0, v12:1, v13:1, v23:1, v123:1 },
+      gloves:   { v1:1, v2:0, v3:1, v12:1, v13:2, v23:1, v123:2 },
+      uniform:  { v1:1, v2:1, v3:1, v12:3, v13:3, v23:3, v123:6 }
+    };
+
+    function loadPreset() {
+      const key = document.getElementById('preset-sel').value;
+      if (key === 'custom') return;
+      const p = PRESETS[key];
+      ['v1','v2','v3','v12','v13','v23','v123'].forEach(id => {
+        document.getElementById(id).value = p[id];
+      });
+      document.getElementById('shapley-output').style.display = 'none';
+    }
+
+    function onInput() {
+      document.getElementById('preset-sel').value = 'custom';
+      document.getElementById('shapley-output').style.display = 'none';
+    }
+
+    function coalVal(v, set) {
+      const key = set.slice().sort().join('');
+      if (key === '1')   return v.v1;
+      if (key === '2')   return v.v2;
+      if (key === '3')   return v.v3;
+      if (key === '12')  return v.v12;
+      if (key === '13')  return v.v13;
+      if (key === '23')  return v.v23;
+      if (key === '123') return v.v123;
+      return 0;
+    }
+
+    function shapleyValue(v) {
+      const perms = [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]];
+      const phi = [0, 0, 0];
+      const permDetails = [];
+
+      for (const perm of perms) {
+        let current = [];
+        const marginals = [];
+        for (const player of perm) {
+          const marg = coalVal(v, [...current, player]) - coalVal(v, current);
+          phi[player - 1] += marg;
+          marginals.push({ player, marg });
+          current = [...current, player];
+        }
+        permDetails.push({ perm, marginals });
+      }
+
+      return { phi: phi.map(x => Math.round(x / 6 * 10000) / 10000), permDetails };
+    }
+
+    function calculate() {
+      const v = {
+        v1:   +document.getElementById('v1').value   || 0,
+        v2:   +document.getElementById('v2').value   || 0,
+        v3:   +document.getElementById('v3').value   || 0,
+        v12:  +document.getElementById('v12').value  || 0,
+        v13:  +document.getElementById('v13').value  || 0,
+        v23:  +document.getElementById('v23').value  || 0,
+        v123: +document.getElementById('v123').value || 0
+      };
+
+      const { phi, permDetails } = shapleyValue(v);
+      const total = phi[0] + phi[1] + phi[2];
+
+      // Player cards
+      const colors = ['#1a3a5c', '#b85c00', '#2d7a50'];
+      document.getElementById('shapley-cards').innerHTML = phi.map((p, i) => `
+        <div class="player-card">
+          <div class="player-label">Jugador ${i+1}</div>
+          <div class="shapley-val" style="color:${colors[i]}">${p.toFixed(4)}</div>
+          <div class="shapley-pct">${total > 0.0001 ? (p/total*100).toFixed(1) + '% del total' : '—'}</div>
+        </div>`).join('');
+
+      // Breakdown table
+      let bk = '--- Contribuciones marginales por orden de entrada ---\n\n';
+      for (const { perm, marginals } of permDetails) {
+        const parts = marginals.map(m => `J${m.player}:+${m.marg.toFixed(2)}`).join('  ');
+        bk += `Orden ${perm.join('→')}:  ${parts}\n`;
+      }
+      bk += `\n--- Valor de Shapley (media) ---\n`;
+      bk += `φ₁ = ${phi[0].toFixed(4)}   φ₂ = ${phi[1].toFixed(4)}   φ₃ = ${phi[2].toFixed(4)}\n`;
+      bk += `Suma = ${total.toFixed(4)}   v(N) = ${v.v123}`;
+      document.getElementById('shapley-breakdown').textContent = bk;
+
+      // Axiom checks
+      const eff = Math.abs(total - v.v123) < 0.001;
+      const superadd = v.v12 >= v.v1 + v.v2 && v.v13 >= v.v1 + v.v3 && v.v23 >= v.v2 + v.v3
+                    && v.v123 >= v.v12 + v.v3 && v.v123 >= v.v13 + v.v2 && v.v123 >= v.v23 + v.v1;
+      const inCore = phi[0] >= v.v1 - 0.001 && phi[1] >= v.v2 - 0.001 && phi[2] >= v.v3 - 0.001
+                  && phi[0]+phi[1] >= v.v12 - 0.001 && phi[0]+phi[2] >= v.v13 - 0.001 && phi[1]+phi[2] >= v.v23 - 0.001;
+
+      const axioms = [
+        { ok: eff,      label: 'Eficiencia', desc: `φ₁+φ₂+φ₃ = ${total.toFixed(4)} ${eff ? '= v(N) ✓' : '≠ v(N) — comprueba los valores'}` },
+        { ok: superadd, label: 'Superaditividad', desc: superadd ? 'La función característica satisface superaditividad (cooperar siempre es racional)' : 'Atención: la función no es superaditiva — puede que no sea racional formar la gran coalición' },
+        { ok: inCore,   label: 'Estabilidad (core)', desc: inCore ? 'El reparto de Shapley está en el core: ninguna coalición prefiere separarse' : 'El reparto de Shapley queda fuera del core — puede haber inestabilidad en la coalición' }
+      ];
+
+      document.getElementById('axiom-check').innerHTML = axioms.map(a => `
+        <div class="axiom-item ${a.ok ? 'axiom-ok' : 'axiom-warn'}">
+          <span class="axiom-icon">${a.ok ? '✓' : '!'}</span>
+          <span><strong>${a.label}:</strong> ${a.desc}</span>
+        </div>`).join('');
+
+      document.getElementById('shapley-output').style.display = 'block';
+      Progress.completeCurrentModule();
+    }
+
+    loadPreset();
+  </script>
 </body>
 </html>

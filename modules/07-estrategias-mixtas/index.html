@@ -7,6 +7,19 @@
   <title>Estrategias Mixtas — Teoría de Juegos</title>
   <link rel="stylesheet" href="../../css/main.css">
   <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    .widget-frame { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-6); margin: var(--space-8) 0; }
+    .preset-bar { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; margin-bottom: var(--space-4); }
+    .preset-bar label { font-size: 0.875rem; font-weight: 600; color: var(--text-muted); }
+    .preset-bar select { padding: 0.35rem 0.8rem; border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 0.875rem; background: var(--surface); color: var(--text); }
+    .slider-row { display: flex; align-items: center; gap: var(--space-4); margin: var(--space-4) 0; flex-wrap: wrap; }
+    .slider-row label { font-size: 0.9rem; font-weight: 600; color: var(--primary); min-width: 220px; }
+    .slider-row input[type=range] { flex: 1; min-width: 160px; accent-color: var(--primary); }
+    .slider-row .slider-val { font-family: var(--font-mono); font-weight: 700; color: var(--primary); min-width: 48px; text-align: right; }
+    .eq-box { padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); font-size: 0.9rem; margin-top: var(--space-4); }
+    .eq-found { background: #f3eeff; border-left: 3px solid #8b5cf6; color: #3b1a7a; }
+    .eq-pure  { background: #edfaf1; border-left: 3px solid #2d7a50; color: #1a4030; }
+  </style>
 </head>
 <body class="module-page">
 
@@ -38,48 +51,51 @@
         <h1>Estrategias Mixtas</h1>
         <p class="subtitle">Ser impredecible puede ser óptimo: la aleatoriedad como estrategia</p>
         <div class="tag-list">
-          <span class="tag">probabilidad</span>
-          <span class="tag">indiferencia</span>
-          <span class="tag">equilibrio mixto</span>
-          <span class="tag">Matching Pennies</span>
+          <span class="tag">probabilidad</span><span class="tag">indiferencia</span>
+          <span class="tag">equilibrio mixto</span><span class="tag">Matching Pennies</span>
         </div>
       </header>
 
       <section>
         <h2>Cuando predecirte es tu debilidad</h2>
-        <p>En algunos juegos no hay equilibrio en estrategias puras: cualquier elección determinista puede ser explotada por el rival. El portero que siempre se tira a la derecha es fácil de batir. El inspector fiscal que siempre revisa el mismo sector es fácil de evadir.</p>
-        <p>Una <strong>estrategia mixta</strong> asigna una distribución de probabilidad sobre las estrategias puras. En equilibrio, cada jugador elige sus probabilidades de forma que el rival sea <em>indiferente</em> entre sus propias estrategias puras —si el rival prefiriera una sobre otra, no estaría en equilibrio.</p>
-        <p>Este principio de indiferencia es la clave para calcular el equilibrio mixto: buscamos las probabilidades que hacen que el pago esperado del rival sea igual en todas sus estrategias.</p>
+        <p>En algunos juegos no hay equilibrio en estrategias puras: cualquier elección determinista puede ser explotada. El portero que siempre se tira a la derecha es fácil de batir. El inspector que siempre revisa el mismo sector es fácil de evadir.</p>
+        <p>Una <strong>estrategia mixta</strong> asigna una distribución de probabilidad sobre las estrategias puras. En equilibrio, cada jugador elige sus probabilidades de forma que el rival sea <em>indiferente</em> entre sus propias estrategias puras. Si el rival prefiriera una sobre otra, cambiaría y el perfil no sería equilibrio.</p>
+        <p>Este <strong>principio de indiferencia</strong> es la clave del cálculo: buscamos las probabilidades que igualan el pago esperado del rival en todas sus estrategias.</p>
       </section>
 
       <section>
         <h2>Conceptos clave</h2>
         <ul class="concept-list">
-          <li>
-            <span class="concept-name">Estrategia mixta</span>
-            <span class="concept-desc">Distribución de probabilidad sobre el conjunto de estrategias puras de un jugador.</span>
-          </li>
-          <li>
-            <span class="concept-name">Principio de indiferencia</span>
-            <span class="concept-desc">En un equilibrio mixto, el jugador que mezcla debe hacer indiferente al rival entre todas las estrategias que el rival usa con probabilidad positiva.</span>
-          </li>
-          <li>
-            <span class="concept-name">Matching Pennies</span>
-            <span class="concept-desc">Juego de suma cero sin equilibrio puro. El único equilibrio es (½, ½) para ambos. Modelo de muchos deportes y situaciones de inspección.</span>
-          </li>
-          <li>
-            <span class="concept-name">Pago esperado</span>
-            <span class="concept-desc">Con estrategias mixtas, el pago de cada combinación es la media ponderada por las probabilidades. El jugador maximiza su pago esperado.</span>
-          </li>
+          <li><span class="concept-name">Estrategia mixta</span><span class="concept-desc">Distribución de probabilidad sobre el conjunto de estrategias puras.</span></li>
+          <li><span class="concept-name">Indiferencia</span><span class="concept-desc">En equilibrio mixto, el jugador que mezcla hace indiferente al rival entre todas las estrategias que el rival usa con prob. positiva.</span></li>
+          <li><span class="concept-name">Matching Pennies</span><span class="concept-desc">Juego de suma cero sin equilibrio puro. Único equilibrio: ambos mezclan 50/50.</span></li>
+          <li><span class="concept-name">Existencia garantizada</span><span class="concept-desc">Nash (1950): todo juego finito tiene al menos un equilibrio en estrategias mixtas.</span></li>
         </ul>
       </section>
 
       <section>
-        <h2>Visualizador de equilibrio mixto</h2>
-        <div class="widget-placeholder">
-          <div class="widget-icon">🎲</div>
-          <h3>Slider de probabilidad + pago esperado — Fase 3</h3>
-          <p>Para Matching Pennies o el juego del penalti, un slider controla la probabilidad p del Jugador 1. D3.js muestra en tiempo real el pago esperado del Jugador 2 como función de p. El equilibrio aparece donde la curva se aplana.</p>
+        <h2>Visualizador de pago esperado</h2>
+        <p>El slider controla la probabilidad <strong>p</strong> con la que J1 juega su primera estrategia. La gráfica muestra el <strong>pago esperado de J2</strong> para cada una de sus estrategias puras. En el equilibrio mixto, J2 es indiferente: ambas curvas se cruzan.</p>
+
+        <div class="widget-frame">
+          <div class="preset-bar">
+            <label>Juego:</label>
+            <select id="game-sel" onchange="loadGame()">
+              <option value="matching">Matching Pennies</option>
+              <option value="penalty">Penalti (asimétrico)</option>
+              <option value="chicken">Gallina (Chicken)</option>
+              <option value="bos">Batalla de Sexos</option>
+            </select>
+          </div>
+
+          <div class="slider-row">
+            <label id="slider-label">p = Prob(Cara) — J1:</label>
+            <input type="range" id="p-slider" min="0" max="100" value="50" oninput="updateChart()">
+            <span class="slider-val" id="p-val">0.50</span>
+          </div>
+
+          <div id="payoff-chart"></div>
+          <div id="eq-info"></div>
         </div>
       </section>
 
@@ -87,7 +103,7 @@
         <span class="notebook-callout-icon">📓</span>
         <div class="notebook-callout-content">
           <h4>Cuaderno Jupyter — Módulo 07</h4>
-          <p>Calcula equilibrios mixtos analíticamente usando el principio de indiferencia. Incluye el problema del penalti con datos reales de la liga española y la verificación numérica con <code>nashpy</code>.</p>
+          <p>Calcula equilibrios mixtos analíticamente con el principio de indiferencia. Incluye el penalti con datos reales de la Liga española y verificación numérica con <code>nashpy</code>.</p>
           <a href="../../notebooks/07_estrategias_mixtas.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
         </div>
       </div>
@@ -113,6 +129,149 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
   <script src="../../js/core/progress.js"></script>
+  <script src="../../js/simulations/nash-solver.js"></script>
+  <script>
+    const GAMES = {
+      matching: {
+        name: 'Matching Pennies',
+        A: [[1,-1],[-1,1]], B: [[-1,1],[1,-1]],
+        r: ['Cara','Cruz'], c: ['Cara','Cruz'],
+        sliderLabel: 'p = Prob(Cara) — J1'
+      },
+      penalty: {
+        name: 'Penalti',
+        A: [[0.6,0.9],[0.8,0.5]], B: [[0.4,0.1],[0.2,0.5]],
+        r: ['Izquierda','Derecha'], c: ['Izquierda','Derecha'],
+        sliderLabel: 'p = Prob(Izq) — Lanzador'
+      },
+      chicken: {
+        name: 'Gallina (Chicken)',
+        A: [[-5,3],[0,1]], B: [[-5,0],[3,1]],
+        r: ['Continuar','Ceder'], c: ['Continuar','Ceder'],
+        sliderLabel: 'p = Prob(Continuar) — J1'
+      },
+      bos: {
+        name: 'Batalla de Sexos',
+        A: [[2,0],[0,1]], B: [[1,0],[0,2]],
+        r: ['Ópera','Fútbol'], c: ['Ópera','Fútbol'],
+        sliderLabel: 'p = Prob(Ópera) — J1'
+      }
+    };
+
+    let currentGame = null;
+
+    function loadGame() {
+      currentGame = GAMES[document.getElementById('game-sel').value];
+      document.getElementById('slider-label').textContent = currentGame.sliderLabel;
+      document.getElementById('p-slider').value = 50;
+      updateChart();
+    }
+
+    function updateChart() {
+      const p = document.getElementById('p-slider').value / 100;
+      document.getElementById('p-val').textContent = p.toFixed(2);
+      renderChart(p);
+    }
+
+    function renderChart(p) {
+      const { A, B, r, c } = currentGame;
+      const W = 460, H = 280;
+      const margin = { top: 20, right: 20, bottom: 50, left: 55 };
+      const w = W - margin.left - margin.right;
+      const h = H - margin.top - margin.bottom;
+
+      d3.select('#payoff-chart').selectAll('*').remove();
+      const svg = d3.select('#payoff-chart').append('svg')
+        .attr('viewBox', `0 0 ${W} ${H}`).attr('width', '100%');
+      const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+      const ps = d3.range(0, 1.01, 0.01);
+
+      // Pago esperado de J2 cuando juega col 0 vs col 1, en función de p (prob J1 juega fila 0)
+      const ep0 = ps.map(pp => B[0][0] * pp + B[1][0] * (1 - pp));
+      const ep1 = ps.map(pp => B[0][1] * pp + B[1][1] * (1 - pp));
+
+      const allVals = [...ep0, ...ep1];
+      const yMin = Math.min(...allVals) - 0.2, yMax = Math.max(...allVals) + 0.2;
+
+      const xScale = d3.scaleLinear().domain([0, 1]).range([0, w]);
+      const yScale = d3.scaleLinear().domain([yMin, yMax]).range([h, 0]);
+
+      // Grid
+      g.append('g').call(d3.axisLeft(yScale).ticks(5).tickSize(-w).tickFormat(''))
+        .call(ax => ax.select('.domain').remove())
+        .call(ax => ax.selectAll('.tick line').attr('stroke', '#f0ede6').attr('stroke-dasharray', '3,3'));
+
+      // Ejes
+      g.append('g').attr('transform', `translate(0,${h})`)
+        .call(d3.axisBottom(xScale).ticks(5).tickFormat(d3.format('.1f')))
+        .call(ax => ax.select('.domain').attr('stroke', '#e0dbd3'));
+      g.append('g').call(d3.axisLeft(yScale).ticks(5))
+        .call(ax => ax.select('.domain').attr('stroke', '#e0dbd3'));
+
+      // Líneas de pago esperado
+      const line = d3.line().x((_, i) => xScale(ps[i])).y(d => yScale(d));
+      [{ data: ep0, color: '#1a3a5c', label: c[0] }, { data: ep1, color: '#b85c00', label: c[1] }]
+        .forEach(({ data, color, label }) => {
+          g.append('path').datum(data).attr('fill', 'none')
+            .attr('stroke', color).attr('stroke-width', 2.5)
+            .attr('d', line);
+          // Etiqueta al final
+          const last = data[data.length - 1];
+          g.append('text').attr('x', w + 4).attr('y', yScale(last))
+            .attr('font-size', 10).attr('fill', color).attr('dominant-baseline', 'middle')
+            .text(label);
+        });
+
+      // Línea vertical en p actual
+      g.append('line')
+        .attr('x1', xScale(p)).attr('y1', 0).attr('x2', xScale(p)).attr('y2', h)
+        .attr('stroke', '#6b6560').attr('stroke-dasharray', '4,3').attr('stroke-width', 1.5);
+
+      // Punto de equilibrio mixto
+      const eq = NashSolver.findMixedNashEquilibrium2x2(A, B);
+      if (eq) {
+        const mx = xScale(eq.p);
+        const ep0_eq = B[0][0] * eq.p + B[1][0] * (1 - eq.p);
+        const my = yScale(ep0_eq);
+        g.append('circle').attr('cx', mx).attr('cy', my).attr('r', 7)
+          .attr('fill', '#8b5cf6').attr('stroke', 'white').attr('stroke-width', 2);
+        g.append('text').attr('x', mx + 9).attr('y', my - 8)
+          .attr('font-size', 10).attr('fill', '#8b5cf6').attr('font-weight', 600)
+          .text(`p*=${eq.p.toFixed(2)}`);
+      }
+
+      // Etiquetas
+      g.append('text').attr('x', w / 2).attr('y', h + 40)
+        .attr('text-anchor', 'middle').attr('font-size', 11).attr('fill', '#6b6560')
+        .text(`p — probabilidad de J1 de jugar ${r[0]}`);
+      svg.append('text').attr('x', 12).attr('y', H / 2)
+        .attr('transform', `rotate(-90, 12, ${H/2})`).attr('text-anchor', 'middle')
+        .attr('font-size', 11).attr('fill', '#6b6560').text('Pago esperado J2');
+
+      // Info box
+      const ep0_p = B[0][0] * p + B[1][0] * (1 - p);
+      const ep1_p = B[0][1] * p + B[1][1] * (1 - p);
+      const pureEqs = NashSolver.findPureNashEquilibria(A, B);
+      let info = `<div class="eq-box eq-found">`;
+      info += `Con p = ${p.toFixed(2)}: pago esperado J2 si juega ${c[0]} = <strong>${ep0_p.toFixed(3)}</strong>, si juega ${c[1]} = <strong>${ep1_p.toFixed(3)}</strong>.<br>`;
+      if (Math.abs(ep0_p - ep1_p) < 0.01) {
+        info += `<strong>✓ Indiferencia:</strong> p = ${p.toFixed(2)} hace indiferente a J2. Esto es el equilibrio mixto de J1.`;
+        Progress.completeCurrentModule();
+      } else {
+        const pref = ep0_p > ep1_p ? c[0] : c[1];
+        info += `J2 prefiere jugar <strong>${pref}</strong>. Mueve el slider hacia p* = ${eq ? eq.p.toFixed(2) : '?'} para ver la indiferencia.`;
+      }
+      if (pureEqs.length > 0) {
+        info += `<br><small>Equilibrios puros: ${pureEqs.map(e => `(${r[e.row]}, ${c[e.col]})`).join(', ')}</small>`;
+      }
+      info += `</div>`;
+      document.getElementById('eq-info').innerHTML = info;
+    }
+
+    loadGame();
+  </script>
 </body>
 </html>

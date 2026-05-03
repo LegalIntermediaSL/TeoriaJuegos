@@ -7,6 +7,29 @@
   <title>Pensar estratégicamente — Teoría de Juegos</title>
   <link rel="stylesheet" href="../../css/main.css">
   <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    .widget-frame { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-6); margin: var(--space-8) 0; }
+    .quiz-question { margin-bottom: var(--space-6); }
+    .quiz-question h3 { font-family: var(--font-sans); font-size: 1rem; margin-bottom: var(--space-3); }
+    .quiz-options { display: flex; flex-direction: column; gap: var(--space-2); }
+    .quiz-opt { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer; transition: all 150ms ease; background: var(--surface); font-size: 0.9rem; text-align: left; }
+    .quiz-opt:hover { border-color: var(--primary); background: #f0f5ff; }
+    .quiz-opt.correct { border-color: var(--success); background: #edfaf1; color: #1a4030; }
+    .quiz-opt.incorrect { border-color: #c0392b; background: #fde8e8; color: #7b1f1f; }
+    .quiz-opt.disabled { pointer-events: none; }
+    .quiz-opt .opt-letter { min-width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.8rem; flex-shrink: 0; }
+    .quiz-feedback { margin-top: var(--space-3); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); font-size: 0.875rem; display: none; }
+    .quiz-feedback.show { display: block; }
+    .quiz-feedback.ok  { background: #edfaf1; border-left: 3px solid var(--success); color: #1a4030; }
+    .quiz-feedback.bad { background: #fde8e8; border-left: 3px solid #c0392b; color: #7b1f1f; }
+    .quiz-progress { display: flex; gap: var(--space-2); margin-bottom: var(--space-6); }
+    .qp-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); transition: background 300ms; }
+    .qp-dot.done { background: var(--success); }
+    .qp-dot.wrong { background: #e74c3c; }
+    .quiz-result { text-align: center; padding: var(--space-8); display: none; }
+    .quiz-result.show { display: block; }
+    .result-score { font-size: 3rem; font-weight: 700; color: var(--primary); font-family: var(--font-mono); }
+  </style>
 </head>
 <body class="module-page">
 
@@ -38,48 +61,39 @@
         <h1>Pensar estratégicamente</h1>
         <p class="subtitle">Qué es un juego formal y en qué se diferencia de una decisión ordinaria</p>
         <div class="tag-list">
-          <span class="tag">jugadores</span>
-          <span class="tag">estrategias</span>
-          <span class="tag">pagos</span>
-          <span class="tag">interdependencia</span>
+          <span class="tag">jugadores</span><span class="tag">estrategias</span>
+          <span class="tag">pagos</span><span class="tag">interdependencia</span>
         </div>
       </header>
 
       <section>
         <h2>¿Qué hace diferente a una decisión estratégica?</h2>
         <p>Decides cuánto abrigo ponerte según el tiempo que hace. El tiempo no reacciona a tu ropa. Eso es una <strong>decisión ordinaria</strong>: el entorno es pasivo.</p>
-        <p>Ahora imagina que estás fijando el precio de tu gasolinera. Hay otra gasolinera enfrente. Si bajas el precio, el rival responde. Su respuesta depende de lo que hagas tú, y lo que hagas tú debería anticipar su respuesta. Eso es una <strong>decisión estratégica</strong>: el entorno son otros agentes que también piensan.</p>
-        <p>La teoría de juegos es la disciplina que estudia este tipo de situaciones con rigor matemático, pero su utilidad va más allá: proporciona un vocabulario y un marco para razonar con claridad en cualquier contexto donde los resultados dependen de las decisiones de más de uno.</p>
+        <p>Ahora imagina que fijas el precio de tu gasolinera. Hay otra enfrente. Si bajas el precio, el rival responde. Su respuesta depende de lo que hagas tú, y lo que hagas tú debería anticipar su respuesta. Eso es una <strong>decisión estratégica</strong>: el entorno son otros agentes que también piensan.</p>
+        <p>La teoría de juegos estudia este tipo de situaciones. Proporciona un vocabulario y un marco para razonar con claridad cuando los resultados dependen de las decisiones de más de uno.</p>
       </section>
 
       <section>
-        <h2>Los tres elementos de un juego</h2>
-        <p>Formalmente, un juego queda definido por tres ingredientes:</p>
+        <h2>Los tres ingredientes de un juego</h2>
         <ul class="concept-list">
-          <li>
-            <span class="concept-name">Jugadores</span>
-            <span class="concept-desc">Los agentes que toman decisiones. Pueden ser personas, empresas, países, genes o algoritmos. Lo esencial es que tienen preferencias y eligen.</span>
-          </li>
-          <li>
-            <span class="concept-name">Estrategias</span>
-            <span class="concept-desc">El conjunto de acciones disponibles para cada jugador. Una estrategia puede ser tan simple como "cooperar o traicionar", o tan compleja como un plan contingente completo.</span>
-          </li>
-          <li>
-            <span class="concept-name">Pagos</span>
-            <span class="concept-desc">El resultado que recibe cada jugador según la combinación de estrategias elegidas por todos. Pueden representar dinero, utilidad, supervivencia o cualquier cosa que le importe al jugador.</span>
-          </li>
+          <li><span class="concept-name">Jugadores</span><span class="concept-desc">Los agentes que toman decisiones. Pueden ser personas, empresas, países, genes o algoritmos. Lo esencial: tienen preferencias y eligen.</span></li>
+          <li><span class="concept-name">Estrategias</span><span class="concept-desc">El conjunto de acciones disponibles para cada jugador. Puede ser simple ("cooperar o traicionar") o un plan contingente completo.</span></li>
+          <li><span class="concept-name">Pagos</span><span class="concept-desc">El resultado que recibe cada jugador según la combinación de estrategias elegidas. Representan utilidad, dinero, supervivencia o lo que importe al jugador.</span></li>
         </ul>
-        <p>El objeto central que recoge todo esto es la <strong>matriz de pagos</strong>: una tabla donde las filas son las estrategias de un jugador, las columnas las del otro, y cada celda muestra los pagos resultantes para ambos.</p>
       </section>
 
       <section>
-        <h2>¿Es esto un juego? Quiz de clasificación</h2>
-        <p>Antes de formalizar, conviene tener claro el olfato. ¿Cuáles de estas situaciones son juegos estratégicos y cuáles no?</p>
+        <h2>Quiz: ¿esto es un juego estratégico?</h2>
+        <p>Clasifica cada situación. Las respuestas incluyen la explicación.</p>
 
-        <div class="widget-placeholder">
-          <div class="widget-icon">🎯</div>
-          <h3>Quiz interactivo — Fase 1</h3>
-          <p>Cinco situaciones. Clasifica cada una como decisión ordinaria o juego estratégico y recibe retroalimentación inmediata con la explicación.</p>
+        <div class="widget-frame">
+          <div class="quiz-progress" id="quiz-progress"></div>
+          <div id="quiz-body"></div>
+          <div class="quiz-result" id="quiz-result">
+            <div class="result-score" id="result-score"></div>
+            <p id="result-msg" style="color:var(--text-muted); margin-top:1rem;"></p>
+            <button class="btn btn-outline btn-sm" onclick="initQuiz()" style="margin-top:1rem;">Repetir quiz</button>
+          </div>
         </div>
       </section>
 
@@ -87,7 +101,7 @@
         <span class="notebook-callout-icon">📓</span>
         <div class="notebook-callout-content">
           <h4>Cuaderno Jupyter — Módulo 01</h4>
-          <p>Representa los tres juegos clásicos de este módulo como matrices numpy. Aprende a leer la matriz de pagos y a extraer los pagos de cualquier perfil de estrategias.</p>
+          <p>Representa juegos clásicos como matrices numpy y extrae los pagos de cualquier perfil de estrategias.</p>
           <a href="../../notebooks/01_introduccion.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
         </div>
       </div>
@@ -111,5 +125,105 @@
   </footer>
 
   <script src="../../js/core/progress.js"></script>
+  <script>
+    const QUESTIONS = [
+      {
+        q: '1. Decides a qué hora despertarte mañana.',
+        options: ['Decisión ordinaria', 'Juego estratégico'],
+        correct: 0,
+        feedback: 'Correcto. El resultado no depende de las decisiones de otros agentes racionales. El entorno (tu cuerpo, tus compromisos) es pasivo.'
+      },
+      {
+        q: '2. Dos supermercados fijan sus precios cada semana observando los precios del rival.',
+        options: ['Decisión ordinaria', 'Juego estratégico'],
+        correct: 1,
+        feedback: 'Correcto. Cada supermercado anticipa la reacción del otro. Sus pagos (ventas, márgenes) dependen de ambas decisiones simultáneamente.'
+      },
+      {
+        q: '3. Un agricultor decide cuánto fertilizante usar en su campo.',
+        options: ['Decisión ordinaria', 'Juego estratégico'],
+        correct: 0,
+        feedback: 'En principio, decisión ordinaria. El resultado depende del suelo y el clima, no de las acciones de otro agente que reaccione a él. (Si contamina acuíferos compartidos, se convierte en estratégico.)'
+      },
+      {
+        q: '4. Dos países negocian la reducción de aranceles en un tratado bilateral.',
+        options: ['Decisión ordinaria', 'Juego estratégico'],
+        correct: 1,
+        feedback: 'Juego estratégico. Las concesiones de cada país dependen de lo que ofrezca el otro. El resultado final es la intersección de sus incentivos.'
+      },
+      {
+        q: '5. Un peatón decide si cruzar con el semáforo en rojo en una calle desierta.',
+        options: ['Decisión ordinaria', 'Juego estratégico'],
+        correct: 0,
+        feedback: 'Si la calle está desierta, es ordinaria: el riesgo depende del tráfico (pasivo), no de la reacción de otro agente. Si hay un conductor que también toma decisiones, se vuelve estratégico.'
+      }
+    ];
+
+    let answers = [];
+    let current = 0;
+
+    function initQuiz() {
+      answers = [];
+      current = 0;
+      document.getElementById('quiz-result').classList.remove('show');
+      document.getElementById('quiz-body').style.display = '';
+      renderProgress();
+      renderQuestion();
+    }
+
+    function renderProgress() {
+      const prog = document.getElementById('quiz-progress');
+      prog.innerHTML = QUESTIONS.map((_, i) => {
+        const cls = answers[i] === undefined ? '' : answers[i] ? 'done' : 'wrong';
+        return `<div class="qp-dot ${cls}"></div>`;
+      }).join('');
+    }
+
+    function renderQuestion() {
+      if (current >= QUESTIONS.length) { showResult(); return; }
+      const q = QUESTIONS[current];
+      document.getElementById('quiz-body').innerHTML = `
+        <div class="quiz-question">
+          <h3>${q.q}</h3>
+          <div class="quiz-options">
+            ${q.options.map((opt, i) => `
+              <button class="quiz-opt" onclick="answer(${i})">
+                <span class="opt-letter">${String.fromCharCode(65+i)}</span>
+                ${opt}
+              </button>`).join('')}
+          </div>
+          <div class="quiz-feedback" id="quiz-feedback"></div>
+        </div>`;
+    }
+
+    function answer(idx) {
+      const q = QUESTIONS[current];
+      const opts = document.querySelectorAll('.quiz-opt');
+      opts.forEach(o => o.classList.add('disabled'));
+      const isCorrect = idx === q.correct;
+      opts[idx].classList.add(isCorrect ? 'correct' : 'incorrect');
+      if (!isCorrect) opts[q.correct].classList.add('correct');
+      answers[current] = isCorrect;
+      renderProgress();
+      const fb = document.getElementById('quiz-feedback');
+      fb.textContent = q.feedback;
+      fb.className = `quiz-feedback show ${isCorrect ? 'ok' : 'bad'}`;
+      setTimeout(() => { current++; renderQuestion(); }, 2400);
+    }
+
+    function showResult() {
+      document.getElementById('quiz-body').style.display = 'none';
+      const score = answers.filter(Boolean).length;
+      document.getElementById('result-score').textContent = `${score}/${QUESTIONS.length}`;
+      document.getElementById('result-msg').textContent =
+        score === QUESTIONS.length ? '¡Perfecto! Tienes el olfato estratégico afilado.' :
+        score >= 3 ? 'Bien. Repasa las respuestas incorrectas.' :
+        'Vuelve a leer la sección de introducción e inténtalo de nuevo.';
+      document.getElementById('quiz-result').classList.add('show');
+      if (score >= 3) Progress.completeCurrentModule();
+    }
+
+    initQuiz();
+  </script>
 </body>
 </html>

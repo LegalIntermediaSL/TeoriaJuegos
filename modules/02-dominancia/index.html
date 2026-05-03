@@ -7,6 +7,17 @@
   <title>Dominancia — Teoría de Juegos</title>
   <link rel="stylesheet" href="../../css/main.css">
   <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    .widget-frame { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-6); margin: var(--space-8) 0; }
+    .widget-controls { display: flex; gap: var(--space-3); flex-wrap: wrap; margin: var(--space-4) 0; }
+    .step-log { margin-top: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2); }
+    .step-entry { padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); font-size: 0.875rem; }
+    .step-row  { background: #fde8e8; border-left: 3px solid #c0392b; color: #7b1f1f; }
+    .step-col  { background: #e8edfde0; border-left: 3px solid #2c6cb5; color: #1a3a5c; }
+    .result-box { background: #eef6ff; border: 1px solid #c8d8f8; border-radius: var(--radius-md); padding: var(--space-4); margin-top: var(--space-4); font-size: 0.9rem; }
+    .solved-box { background: #edfaf1; border: 1px solid #a8dfc0; border-radius: var(--radius-md); padding: var(--space-4); margin-top: var(--space-4); }
+    #matrix-eied text { font-family: system-ui, sans-serif; }
+  </style>
 </head>
 <body class="module-page">
 
@@ -49,37 +60,32 @@
         <h2>Una estrategia que siempre pierde</h2>
         <p>Si una estrategia te da peor resultado que otra <em>pase lo que haga el rival</em>, nunca debería jugarla un agente racional. Eso es una <strong>estrategia estrictamente dominada</strong>: hay otra que la supera en todas las situaciones posibles.</p>
         <p>El razonamiento es limpio: si tú eres racional y sabes que tu rival también lo es, puedes eliminar sus estrategias dominadas igual que las tuyas. El juego resultante es más pequeño y puede tener nuevas estrategias dominadas que antes no lo eran. Aplicar este proceso en cadena se llama <strong>Eliminación Iterada de Estrategias Dominadas (EIED)</strong>.</p>
-        <p>Cuando la EIED lleva a un único perfil de estrategias, el juego se llama <em>dominancia-soluble</em>: la racionalidad por sí sola predice el resultado sin necesidad de coordinación ni de adivinar al rival.</p>
+        <p>Cuando la EIED lleva a un único perfil de estrategias, el juego se llama <em>dominancia-soluble</em>: la racionalidad sola predice el resultado sin necesidad de coordinación.</p>
       </section>
 
       <section>
         <h2>Conceptos clave</h2>
         <ul class="concept-list">
-          <li>
-            <span class="concept-name">Dom. estricta</span>
-            <span class="concept-desc">La estrategia A domina estrictamente a B si A da mayor pago que B para <em>todas</em> las estrategias del rival.</span>
-          </li>
-          <li>
-            <span class="concept-name">Dom. débil</span>
-            <span class="concept-desc">A domina débilmente a B si A es al menos tan buena como B en todos los casos, y estrictamente mejor en alguno.</span>
-          </li>
-          <li>
-            <span class="concept-name">EIED</span>
-            <span class="concept-desc">Proceso iterativo: eliminar estrategias dominadas, reducir el juego y repetir hasta no poder eliminar más.</span>
-          </li>
-          <li>
-            <span class="concept-name">Juego dominancia-soluble</span>
-            <span class="concept-desc">Juego donde la EIED produce un único resultado. La racionalidad común predice un equilibrio sin ambigüedad.</span>
-          </li>
+          <li><span class="concept-name">Dom. estricta</span><span class="concept-desc">La estrategia A domina estrictamente a B si A da mayor pago que B para <em>todas</em> las estrategias del rival.</span></li>
+          <li><span class="concept-name">Dom. débil</span><span class="concept-desc">A domina débilmente a B si A ≥ B en todos los casos y A > B en alguno.</span></li>
+          <li><span class="concept-name">EIED</span><span class="concept-desc">Eliminar dominadas, reducir el juego, repetir. Se detiene cuando no hay más estrategias dominadas.</span></li>
+          <li><span class="concept-name">Dom.-soluble</span><span class="concept-desc">Juego donde la EIED lleva a un único resultado. El orden de eliminación no importa (para dominancia estricta).</span></li>
         </ul>
       </section>
 
       <section>
         <h2>Simulador de eliminación iterada</h2>
-        <div class="widget-placeholder">
-          <div class="widget-icon">✂️</div>
-          <h3>Matriz editable + eliminación animada — Fase 1</h3>
-          <p>Introduce los pagos de una matriz 3×3. Marca qué estrategia crees dominada. El simulador verifica y anima la eliminación paso a paso con D3.js.</p>
+        <p>El juego por defecto es dominancia-soluble. Pulsa <strong>"Siguiente eliminación"</strong> para ver el proceso paso a paso, o <strong>"Resolver todo"</strong> para ver el resultado de golpe. Puedes editar los pagos haciendo clic en las celdas.</p>
+
+        <div class="widget-frame">
+          <div id="matrix-eied"></div>
+          <div class="widget-controls">
+            <button class="btn btn-primary btn-sm" id="btn-step">Siguiente eliminación →</button>
+            <button class="btn btn-accent btn-sm" id="btn-solve-all">Resolver todo</button>
+            <button class="btn btn-ghost btn-sm" id="btn-reset">Reiniciar</button>
+          </div>
+          <div id="step-log" class="step-log"></div>
+          <div id="result-box"></div>
         </div>
       </section>
 
@@ -87,7 +93,7 @@
         <span class="notebook-callout-icon">📓</span>
         <div class="notebook-callout-content">
           <h4>Cuaderno Jupyter — Módulo 02</h4>
-          <p>Implementa EIED desde cero con numpy. Resuelve ejercicios de matrices 3×3 con dominancia débil, los casos más delicados del algoritmo.</p>
+          <p>Implementa EIED desde cero con numpy. Resuelve ejercicios de matrices 3×3 incluyendo los casos de dominancia débil.</p>
           <a href="../../notebooks/02_dominancia.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
         </div>
       </div>
@@ -113,6 +119,128 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
   <script src="../../js/core/progress.js"></script>
+  <script src="../../js/simulations/nash-solver.js"></script>
+  <script src="../../js/visualizations/matrix-renderer.js"></script>
+  <script>
+    // ── Estado del simulador ──
+    const DEFAULT_GAME = {
+      A: [[4, 0, 2], [3, 2, 1], [1, 1, 3]],
+      B: [[2, 3, 1], [1, 2, 4], [0, 3, 2]],
+      rowLabels: ['Alto', 'Medio', 'Bajo'],
+      colLabels: ['Izq', 'Centro', 'Der'],
+    };
+
+    let state = null;
+
+    function resetState() {
+      state = {
+        A: DEFAULT_GAME.A.map(r => [...r]),
+        B: DEFAULT_GAME.B.map(r => [...r]),
+        rowLabels: [...DEFAULT_GAME.rowLabels],
+        colLabels:  [...DEFAULT_GAME.colLabels],
+        activeRows: [0, 1, 2],
+        activeCols: [0, 1, 2],
+        steps: null,
+        stepIdx: 0,
+        solved: false,
+      };
+      computeSteps();
+    }
+
+    function computeSteps() {
+      const res = NashSolver.iteratedElimination(
+        state.A, state.B, state.rowLabels, state.colLabels
+      );
+      state.steps = res.steps;
+      state.finalRows = res.activeRows;
+      state.finalCols = res.activeCols;
+      state.stepIdx = 0;
+      state.activeRows = [0, 1, 2];
+      state.activeCols = [0, 1, 2];
+      renderMatrix();
+    }
+
+    function renderMatrix() {
+      MatrixRenderer.render({
+        container: '#matrix-eied',
+        A: state.A, B: state.B,
+        rowLabels: state.rowLabels,
+        colLabels:  state.colLabels,
+        showNash: false,
+        editable: true,
+        onPayoffChange(A, B) {
+          state.A = A; state.B = B;
+          document.getElementById('step-log').innerHTML = '';
+          document.getElementById('result-box').innerHTML = '';
+          computeSteps();
+        }
+      });
+      // Atenuar eliminadas
+      state.steps.slice(0, state.stepIdx).forEach(s => {
+        MatrixRenderer.animateElimination('#matrix-eied', s.type, s.index);
+      });
+    }
+
+    function applyStep() {
+      if (!state.steps || state.stepIdx >= state.steps.length) {
+        showResult();
+        return;
+      }
+      const step = state.steps[state.stepIdx];
+      state.stepIdx++;
+
+      MatrixRenderer.animateElimination('#matrix-eied', step.type, step.index);
+
+      const log = document.getElementById('step-log');
+      const who = step.player === 1 ? 'J1' : 'J2';
+      const kind = step.type === 'row' ? 'fila' : 'columna';
+      const entry = document.createElement('div');
+      entry.className = `step-entry step-${step.type}`;
+      entry.textContent = `Paso ${state.stepIdx}: eliminada ${kind} "${step.label}" de ${who} — estrictamente dominada`;
+      log.appendChild(entry);
+
+      if (state.stepIdx >= state.steps.length) showResult();
+    }
+
+    function showResult() {
+      const box = document.getElementById('result-box');
+      const survivors_r = state.finalRows.map(i => state.rowLabels[i]);
+      const survivors_c = state.finalCols.map(j => state.colLabels[j]);
+
+      if (survivors_r.length === 1 && survivors_c.length === 1) {
+        box.innerHTML = `
+          <div class="solved-box">
+            <strong>✓ Juego dominancia-soluble</strong><br>
+            El único resultado superviviente es <strong>(${survivors_r[0]}, ${survivors_c[0]})</strong>.<br>
+            La racionalidad predice este resultado sin necesidad de coordinación.
+          </div>`;
+        Progress.completeCurrentModule();
+      } else {
+        box.innerHTML = `
+          <div class="result-box">
+            <strong>EIED completada</strong><br>
+            Estrategias supervivientes: filas {${survivors_r.join(', ')}} × columnas {${survivors_c.join(', ')}}.<br>
+            El juego no es dominancia-soluble: necesitamos equilibrio de Nash para precisar más.
+          </div>`;
+      }
+    }
+
+    // ── Botones ──
+    document.getElementById('btn-step').addEventListener('click', applyStep);
+    document.getElementById('btn-solve-all').addEventListener('click', () => {
+      while (state.stepIdx < (state.steps?.length || 0)) applyStep();
+      showResult();
+    });
+    document.getElementById('btn-reset').addEventListener('click', () => {
+      document.getElementById('step-log').innerHTML = '';
+      document.getElementById('result-box').innerHTML = '';
+      resetState();
+    });
+
+    // ── Init ──
+    resetState();
+  </script>
 </body>
 </html>

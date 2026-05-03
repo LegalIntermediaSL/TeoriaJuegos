@@ -7,6 +7,17 @@
   <title>Juegos Extensivos — Teoría de Juegos</title>
   <link rel="stylesheet" href="../../css/main.css">
   <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    .widget-frame { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-6); margin: var(--space-8) 0; }
+    .tree-controls { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; margin-bottom: var(--space-4); }
+    .tree-controls label { font-size: 0.875rem; font-weight: 600; color: var(--text-muted); }
+    .tree-controls select { padding: 0.35rem 0.8rem; border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 0.875rem; background: var(--surface); color: var(--text); }
+    .tree-desc { font-size: 0.875rem; color: var(--text-muted); margin-bottom: var(--space-4); font-style: italic; padding: var(--space-3) var(--space-4); background: var(--code-bg); border-radius: var(--radius-md); }
+    #tree-container svg text { font-family: system-ui, sans-serif; }
+    .solve-result { margin-top: var(--space-4); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); font-size: 0.875rem; }
+    .solve-result.found { background: #edfaf1; border-left: 3px solid var(--success); }
+    .solve-result.note  { background: var(--code-bg); border-left: 3px solid var(--border); color: var(--text-muted); }
+  </style>
 </head>
 <body class="module-page">
 
@@ -38,48 +49,46 @@
         <h1>Juegos Extensivos</h1>
         <p class="subtitle">El orden de las decisiones cambia el juego: árboles e inducción hacia atrás</p>
         <div class="tag-list">
-          <span class="tag">árbol de juego</span>
-          <span class="tag">backward induction</span>
-          <span class="tag">SPE</span>
-          <span class="tag">credibilidad</span>
+          <span class="tag">árbol de juego</span><span class="tag">backward induction</span>
+          <span class="tag">SPE</span><span class="tag">credibilidad</span>
         </div>
       </header>
 
       <section>
         <h2>El orden importa</h2>
         <p>La matriz de pagos ignora cuándo decide cada jugador. En muchas situaciones reales el orden es crucial: primero habla uno, luego responde el otro habiendo observado la primera elección. La <strong>forma extensiva</strong> captura esta secuencia mediante un árbol de juego.</p>
-        <p>En el árbol, cada nodo es un punto de decisión, cada rama una acción posible, y cada hoja un pago terminal. El algoritmo de solución es la <strong>inducción hacia atrás</strong> (backward induction): empezar por las hojas y subir razonando hacia la raíz, eliminando en cada nodo las acciones que el jugador racional no elegiría.</p>
-        <p>Un resultado fundamental: no todas las amenazas son creíbles. Un jugador puede amenazar con una acción costosa para disuadir al rival, pero si llegado el momento cumplir la amenaza lo perjudica más que no cumplirla, el rival sabe que es un farol. El <strong>Equilibrio Perfecto en Subjuegos (SPE)</strong> elimina exactamente estos equilibrios con amenazas vacías.</p>
+        <p>En el árbol, cada nodo es un punto de decisión, cada rama una acción posible, y cada hoja un pago terminal. El algoritmo de solución es la <strong>inducción hacia atrás</strong>: empezar por las hojas y subir razonando hacia la raíz, eligiendo en cada nodo la mejor acción dada la continuación óptima.</p>
+        <p>Una consecuencia crucial: no todas las amenazas son creíbles. Si cumplir una amenaza perjudica al que la hace más que no cumplirla, el rival lo sabe. El <strong>Equilibrio Perfecto en Subjuegos (SPE)</strong> elimina precisamente estos equilibrios con amenazas vacías.</p>
       </section>
 
       <section>
         <h2>Conceptos clave</h2>
         <ul class="concept-list">
-          <li>
-            <span class="concept-name">Forma extensiva</span>
-            <span class="concept-desc">Representación del juego como árbol. Recoge el orden de movimientos, la información disponible en cada nodo y los pagos en las hojas.</span>
-          </li>
-          <li>
-            <span class="concept-name">Backward induction</span>
-            <span class="concept-desc">Resolver el árbol de derecha a izquierda: en cada nodo terminal, el jugador elige su mejor acción dado lo que queda por venir.</span>
-          </li>
-          <li>
-            <span class="concept-name">Amenaza creíble</span>
-            <span class="concept-desc">Una amenaza es creíble si cumplirla es óptimo en el subjuego donde se ejecuta. Si no lo es, el rival la ignorará.</span>
-          </li>
-          <li>
-            <span class="concept-name">SPE</span>
-            <span class="concept-desc">Equilibrio Perfecto en Subjuegos: equilibrio de Nash que es también equilibrio en cada subjuego del árbol. Elimina equilibrios con amenazas no creíbles.</span>
-          </li>
+          <li><span class="concept-name">Forma extensiva</span><span class="concept-desc">Árbol que recoge el orden de movimientos, la información disponible en cada nodo y los pagos terminales.</span></li>
+          <li><span class="concept-name">Backward induction</span><span class="concept-desc">Resolver el árbol de derecha a izquierda: en cada nodo el jugador elige su mejor acción dado lo que viene después.</span></li>
+          <li><span class="concept-name">Amenaza creíble</span><span class="concept-desc">Una amenaza es creíble si cumplirla es óptimo en el subjuego donde se ejecuta. Si no lo es, el rival la ignorará.</span></li>
+          <li><span class="concept-name">SPE</span><span class="concept-desc">Equilibrio Perfecto en Subjuegos: equilibrio de Nash que es también equilibrio en cada subjuego. Elimina amenazas no creíbles.</span></li>
         </ul>
       </section>
 
       <section>
-        <h2>Constructor de árboles de juego</h2>
-        <div class="widget-placeholder">
-          <div class="widget-icon">🌳</div>
-          <h3>Editor visual de árboles + backward induction — Fase 2</h3>
-          <p>Dibuja tu árbol de juego, asigna pagos a las hojas y ejecuta "Resolver". D3.js animará la inducción hacia atrás coloreando las ramas óptimas de derecha a izquierda.</p>
+        <h2>Árbol de juego interactivo</h2>
+        <p>Selecciona un juego extensivo y pulsa <strong>"Resolver con inducción hacia atrás"</strong>. El camino óptimo se resaltará en verde.</p>
+
+        <div class="widget-frame">
+          <div class="tree-controls">
+            <label>Juego:</label>
+            <select id="tree-select" onchange="loadTree()">
+              <option value="entry">Entrada al mercado (Entrante vs Incumbente)</option>
+              <option value="ultimatum">Juego del ultimátum simplificado</option>
+              <option value="trust">Juego de confianza (Trust Game)</option>
+            </select>
+            <button class="btn btn-primary btn-sm" id="btn-solve">Resolver →</button>
+            <button class="btn btn-ghost btn-sm" id="btn-reset-tree">Reiniciar</button>
+          </div>
+          <div class="tree-desc" id="tree-desc"></div>
+          <div id="tree-container"></div>
+          <div id="solve-result"></div>
         </div>
       </section>
 
@@ -87,7 +96,7 @@
         <span class="notebook-callout-icon">📓</span>
         <div class="notebook-callout-content">
           <h4>Cuaderno Jupyter — Módulo 06</h4>
-          <p>Implementa backward induction de forma recursiva con <code>networkx</code>. Analiza el juego de entrada al mercado (Incumbent vs. Entrant) y demuestra por qué la amenaza de guerra de precios puede no ser creíble.</p>
+          <p>Implementa backward induction recursivo con <code>networkx</code>. Analiza el juego de entrada al mercado y demuestra por qué la amenaza de guerra de precios puede no ser creíble.</p>
           <a href="../../notebooks/06_juegos_extensivos.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
         </div>
       </div>
@@ -113,6 +122,114 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
   <script src="../../js/core/progress.js"></script>
+  <script src="../../js/visualizations/game-tree.js"></script>
+  <script>
+    const TREES = {
+      entry: {
+        name: 'Entrada al Mercado',
+        desc: 'El Entrante decide si entrar al mercado. Si entra, el Incumbente puede iniciar una guerra de precios (costosa para ambos) o acomodar. La amenaza de guerra es creíble solo si C < 0 para el incumbente.',
+        speName: 'Entrar + Acomodar',
+        spePayoffs: '(1, 2)',
+        root: {
+          id:'r', label:'Entrante', player:1, label2:'Entrante',
+          children:[
+            { id:'no', label:'No entrar', type:'leaf', payoffs:[0,4], payoffLabel:'(0, 4)' },
+            { id:'in', label:'Entrar', player:2, label2:'Incumbente', type:'node',
+              children:[
+                { id:'war',   label:'Guerra',   type:'leaf', payoffs:[-1,-1], payoffLabel:'(-1, -1)' },
+                { id:'acc',   label:'Acomodar', type:'leaf', payoffs:[1,2],   payoffLabel:'(1, 2)' }
+              ]
+            }
+          ]
+        }
+      },
+      ultimatum: {
+        name: 'Ultimátum simplificado',
+        desc: 'J1 propone repartir 6 entre ambos: (5,1) o (3,3). J2 acepta o rechaza. Si rechaza, ambos obtienen 0. La inducción hacia atrás predice que J2 acepta cualquier oferta positiva.',
+        speName: 'J1 ofrece (5,1) · J2 acepta',
+        spePayoffs: '(5, 1)',
+        root: {
+          id:'r', label:'J1', player:1, label2:'Proponente',
+          children:[
+            { id:'p51', label:'Ofrece (5,1)', player:2, label2:'J2 (Respondedor)', type:'node',
+              children:[
+                { id:'a51', label:'Aceptar', type:'leaf', payoffs:[5,1], payoffLabel:'(5, 1)' },
+                { id:'r51', label:'Rechazar',type:'leaf', payoffs:[0,0], payoffLabel:'(0, 0)' }
+              ]
+            },
+            { id:'p33', label:'Ofrece (3,3)', player:2, label2:'J2 (Respondedor)', type:'node',
+              children:[
+                { id:'a33', label:'Aceptar', type:'leaf', payoffs:[3,3], payoffLabel:'(3, 3)' },
+                { id:'r33', label:'Rechazar',type:'leaf', payoffs:[0,0], payoffLabel:'(0, 0)' }
+              ]
+            }
+          ]
+        }
+      },
+      trust: {
+        name: 'Juego de Confianza',
+        desc: 'J1 decide si confiar (transferir 4 → se triplica a 12 para J2). Si confía, J2 puede devolver la mitad o quedarse todo. Sin confianza, ambos obtienen 4. La inducción hacia atrás predice que J2 no devuelve → J1 no confía.',
+        speName: 'J1 no confía',
+        spePayoffs: '(4, 4)',
+        root: {
+          id:'r', label:'J1', player:1, label2:'Inversor',
+          children:[
+            { id:'nc', label:'No confiar', type:'leaf', payoffs:[4,4], payoffLabel:'(4, 4)' },
+            { id:'c',  label:'Confiar',    player:2,   label2:'Receptor', type:'node',
+              children:[
+                { id:'dev',  label:'Devolver',     type:'leaf', payoffs:[10,6],  payoffLabel:'(10, 6)' },
+                { id:'keep', label:'Quedarse todo', type:'leaf', payoffs:[0,12], payoffLabel:'(0, 12)' }
+              ]
+            }
+          ]
+        }
+      }
+    };
+
+    let currentTree = null;
+    let solved = false;
+
+    function solveNode(node) {
+      if (node.type === 'leaf') return { ...node };
+      const children = node.children.map(solveNode);
+      const pi = node.player - 1;
+      let best = null;
+      for (const c of children) {
+        if (!best || c.payoffs[pi] > best.payoffs[pi]) best = c;
+      }
+      return {
+        ...node,
+        children: children.map(c => ({ ...c, optimalPath: c.id === best.id })),
+        payoffs: best.payoffs
+      };
+    }
+
+    function loadTree() {
+      const key = document.getElementById('tree-select').value;
+      currentTree = TREES[key];
+      solved = false;
+      document.getElementById('tree-desc').textContent = currentTree.desc;
+      document.getElementById('solve-result').innerHTML = '';
+      GameTree.render({ container: '#tree-container', tree: { ...currentTree, root: currentTree.root }, width: 640, height: 300 });
+    }
+
+    document.getElementById('btn-solve').addEventListener('click', () => {
+      if (!currentTree) return;
+      const solvedRoot = solveNode(currentTree.root);
+      GameTree.render({ container: '#tree-container', tree: { ...currentTree, root: solvedRoot }, width: 640, height: 300 });
+      document.getElementById('solve-result').innerHTML = `
+        <div class="solve-result found">
+          <strong>SPE:</strong> ${currentTree.speName} — pagos ${currentTree.spePayoffs}<br>
+          <span style="color:var(--text-muted); font-size:0.82rem;">El camino verde es el único equilibrio con amenazas creíbles.</span>
+        </div>`;
+      solved = true;
+      Progress.completeCurrentModule();
+    });
+
+    document.getElementById('btn-reset-tree').addEventListener('click', loadTree);
+    loadTree();
+  </script>
 </body>
 </html>

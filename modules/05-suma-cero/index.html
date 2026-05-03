@@ -7,6 +7,20 @@
   <title>Juegos de Suma Cero — Teoría de Juegos</title>
   <link rel="stylesheet" href="../../css/main.css">
   <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    .widget-frame { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-6); margin: var(--space-8) 0; }
+    .matrix-input-grid { display: grid; gap: 6px; width: fit-content; margin: var(--space-4) auto; }
+    .matrix-input-grid input { width: 64px; height: 44px; text-align: center; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 1.1rem; font-weight: 600; color: var(--primary); font-family: var(--font-mono); background: var(--bg); }
+    .matrix-input-grid input:focus { outline: 2px solid var(--primary); border-color: var(--primary); background: white; }
+    .matrix-input-grid input.saddle { background: #edfaf1; border-color: #2d7a50; color: #1a4030; }
+    .minimax-steps { margin-top: var(--space-4); font-size: 0.875rem; display: flex; flex-direction: column; gap: var(--space-2); }
+    .minimax-step { padding: var(--space-2) var(--space-4); border-radius: var(--radius-sm); }
+    .step-row { background: #f0f5ff; border-left: 3px solid #1a3a5c; }
+    .step-col { background: #fff4e8; border-left: 3px solid #b85c00; }
+    .step-result { background: #edfaf1; border-left: 3px solid #2d7a50; font-weight: 600; }
+    .row-sel, .col-sel { margin: var(--space-3) 0; display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; font-size: 0.875rem; }
+    .matrix-label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; color: var(--text-muted); text-align: center; margin-bottom: var(--space-2); }
+  </style>
 </head>
 <body class="module-page">
 
@@ -38,48 +52,53 @@
         <h1>Juegos de Suma Cero</h1>
         <p class="subtitle">Conflicto puro: tu ganancia es exactamente mi pérdida</p>
         <div class="tag-list">
-          <span class="tag">minimax</span>
-          <span class="tag">Von Neumann</span>
-          <span class="tag">punto de silla</span>
-          <span class="tag">conflicto total</span>
+          <span class="tag">minimax</span><span class="tag">Von Neumann</span>
+          <span class="tag">punto de silla</span><span class="tag">conflicto total</span>
         </div>
       </header>
 
       <section>
         <h2>Cuando el pastel es fijo</h2>
-        <p>En un juego de suma cero, los pagos de todos los jugadores suman cero en cualquier perfil de estrategias. Lo que uno gana, otro lo pierde exactamente. No existe posibilidad de creación de valor conjunta: el tamaño del pastel es fijo y solo cambia su distribución.</p>
-        <p>John von Neumann demostró en 1928 —antes de que Nash naciera— el <strong>Teorema Minimax</strong>: en todo juego de suma cero de dos jugadores con estrategias finitas, existe siempre una estrategia óptima. El Jugador 1 maximiza el mínimo que puede garantizarse (maximin). El Jugador 2 minimiza el máximo que puede perder (minimax). Ambos valores coinciden.</p>
-        <p>Más importante aún: la teoría nos advierte de un sesgo cognitivo peligroso. La mayoría de interacciones reales —negociaciones, relaciones, comercio internacional— <em>no</em> son de suma cero. Tratarlas como si lo fueran destruye valor que podría crearse.</p>
+        <p>En un juego de suma cero, los pagos de todos los jugadores suman cero en cualquier perfil. Lo que uno gana lo pierde el otro exactamente. No hay posibilidad de creación de valor conjunta.</p>
+        <p>Von Neumann demostró en 1928 el <strong>Teorema Minimax</strong>: en todo juego de suma cero de dos jugadores, el Jugador 1 puede garantizarse un valor v* maximizando el mínimo que puede obtener (maximin), y el Jugador 2 puede limitarlo a v* minimizando el máximo que J1 puede conseguir (minimax). Ambos valores coinciden: existe siempre una solución óptima.</p>
+        <p>El <strong>punto de silla</strong> es la celda de la matriz que es el mínimo de su fila y el máximo de su columna simultáneamente. Si existe, es el equilibrio en estrategias puras. Si no existe, la solución requiere estrategias mixtas (Módulo 07).</p>
+        <p><em>Advertencia cognitiva:</em> la mayoría de interacciones reales <strong>no</strong> son de suma cero. Tratar como suma cero lo que no lo es —negociaciones, relaciones, comercio— destruye valor que podría crearse.</p>
       </section>
 
       <section>
         <h2>Conceptos clave</h2>
         <ul class="concept-list">
-          <li>
-            <span class="concept-name">Suma cero</span>
-            <span class="concept-desc">La suma de pagos de todos los jugadores es constante (normalmente cero) para cualquier combinación de estrategias.</span>
-          </li>
-          <li>
-            <span class="concept-name">Punto de silla</span>
-            <span class="concept-desc">Celda de la matriz que es mínimo de su fila y máximo de su columna simultáneamente. Si existe, es el equilibrio en estrategias puras.</span>
-          </li>
-          <li>
-            <span class="concept-name">Teorema Minimax</span>
-            <span class="concept-desc">En juegos de suma cero bimatricial finito, maximin = minimax. Siempre existe un valor del juego y estrategias óptimas.</span>
-          </li>
-          <li>
-            <span class="concept-name">Estrategia mixta</span>
-            <span class="concept-desc">Cuando no hay punto de silla puro, la solución óptima requiere aleatorizar. Ver Módulo 07 para el desarrollo completo.</span>
-          </li>
+          <li><span class="concept-name">Suma cero</span><span class="concept-desc">Suma de todos los pagos = 0 en cualquier perfil de estrategias.</span></li>
+          <li><span class="concept-name">Punto de silla</span><span class="concept-desc">Celda que es mínimo de su fila y máximo de su columna. Si existe, es equilibrio en estrategias puras y el valor del juego.</span></li>
+          <li><span class="concept-name">Maximin</span><span class="concept-desc">J1 elige la fila que maximiza su garantía mínima.</span></li>
+          <li><span class="concept-name">Minimax</span><span class="concept-desc">J2 elige la columna que minimiza el máximo que puede ganar J1.</span></li>
         </ul>
       </section>
 
       <section>
         <h2>Calculadora Minimax</h2>
-        <div class="widget-placeholder">
-          <div class="widget-icon">⚔️</div>
-          <h3>Solver minimax paso a paso — Fase 2</h3>
-          <p>Introduce una matriz de suma cero 2×2 o 3×3. El algoritmo busca el punto de silla, muestra el proceso y calcula el valor del juego.</p>
+        <p>Introduce los pagos de J1 en la matriz (el juego es de suma cero, así que los pagos de J2 son el negativo). Pulsa <strong>Resolver</strong> para encontrar el punto de silla.</p>
+
+        <div class="widget-frame">
+          <div class="matrix-label">Pagos del Jugador 1 (los de J2 son sus negativos)</div>
+
+          <div class="row-sel">
+            <span>Tamaño:</span>
+            <select id="size-sel" onchange="buildMatrix()">
+              <option value="2">2×2</option>
+              <option value="3" selected>3×3</option>
+            </select>
+            <button class="btn btn-ghost btn-sm" onclick="loadExample()">Cargar ejemplo</button>
+          </div>
+
+          <div id="matrix-inputs"></div>
+
+          <div class="widget-controls" style="margin-top:1rem;">
+            <button class="btn btn-primary btn-sm" onclick="solve()">Resolver →</button>
+            <button class="btn btn-ghost btn-sm" onclick="clearSteps()">Limpiar</button>
+          </div>
+
+          <div id="minimax-steps" class="minimax-steps"></div>
         </div>
       </section>
 
@@ -87,7 +106,7 @@
         <span class="notebook-callout-icon">📓</span>
         <div class="notebook-callout-content">
           <h4>Cuaderno Jupyter — Módulo 05</h4>
-          <p>Resuelve juegos de suma cero con <code>scipy.optimize.linprog</code>. Incluye ejemplos de póker simplificado y negociación de precio único.</p>
+          <p>Resuelve juegos de suma cero con <code>scipy.optimize.linprog</code>. Incluye el modelo de póker simplificado y guerra de precios con cuota fija.</p>
           <a href="../../notebooks/05_suma_cero.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
         </div>
       </div>
@@ -114,5 +133,107 @@
   </footer>
 
   <script src="../../js/core/progress.js"></script>
+  <script>
+    let n = 3;
+    let matrix = [[3,-1,0],[-2,2,1],[1,0,-1]];
+
+    const EXAMPLES = {
+      2: [[4,-2],[-1,3]],
+      3: [[3,-1,0],[-2,2,1],[1,0,-1]]
+    };
+
+    function buildMatrix() {
+      n = +document.getElementById('size-sel').value;
+      matrix = EXAMPLES[n].map(r => [...r]);
+      renderInputs();
+      clearSteps();
+    }
+
+    function loadExample() {
+      n = +document.getElementById('size-sel').value;
+      matrix = EXAMPLES[n].map(r => [...r]);
+      renderInputs();
+      clearSteps();
+    }
+
+    function renderInputs() {
+      const container = document.getElementById('matrix-inputs');
+      container.innerHTML = '';
+      const grid = document.createElement('div');
+      grid.className = 'matrix-input-grid';
+      grid.style.gridTemplateColumns = `repeat(${n}, 64px)`;
+
+      for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+          const inp = document.createElement('input');
+          inp.type = 'number';
+          inp.value = matrix[i][j];
+          inp.id = `cell-${i}-${j}`;
+          inp.addEventListener('input', () => {
+            matrix[i][j] = +inp.value || 0;
+            clearSteps();
+          });
+          grid.appendChild(inp);
+        }
+      }
+      container.appendChild(grid);
+    }
+
+    function getMatrix() {
+      const m = [];
+      for (let i = 0; i < n; i++) {
+        m.push([]);
+        for (let j = 0; j < n; j++) {
+          m[i].push(+(document.getElementById(`cell-${i}-${j}`).value) || 0);
+        }
+      }
+      return m;
+    }
+
+    function solve() {
+      const m = getMatrix();
+      const steps = [];
+
+      // Calcular mínimo de cada fila
+      const rowMins = m.map(r => Math.min(...r));
+      steps.push({ type: 'row', text: `Mínimos de fila: [${rowMins.join(', ')}]` });
+
+      // Maximin
+      const maximin = Math.max(...rowMins);
+      const maximinRow = rowMins.indexOf(maximin);
+      steps.push({ type: 'row', text: `Maximin (J1): max de los mínimos = ${maximin} → J1 juega fila ${maximinRow + 1}` });
+
+      // Calcular máximo de cada columna
+      const colMaxs = m[0].map((_, j) => Math.max(...m.map(r => r[j])));
+      steps.push({ type: 'col', text: `Máximos de columna: [${colMaxs.join(', ')}]` });
+
+      // Minimax
+      const minimax = Math.min(...colMaxs);
+      const minimaxCol = colMaxs.indexOf(minimax);
+      steps.push({ type: 'col', text: `Minimax (J2): min de los máximos = ${minimax} → J2 juega columna ${minimaxCol + 1}` });
+
+      // ¿Punto de silla?
+      if (maximin === minimax) {
+        steps.push({ type: 'result', text: `✓ Punto de silla encontrado: celda (${maximinRow+1}, ${minimaxCol+1}) = ${maximin}. Valor del juego = ${maximin}.` });
+        // Resaltar la celda
+        document.querySelectorAll('.matrix-input-grid input').forEach(inp => inp.classList.remove('saddle'));
+        const saddle = document.getElementById(`cell-${maximinRow}-${minimaxCol}`);
+        if (saddle) saddle.classList.add('saddle');
+        Progress.completeCurrentModule();
+      } else {
+        steps.push({ type: 'result', text: `✗ No existe punto de silla puro (maximin=${maximin} ≠ minimax=${minimax}). La solución óptima requiere estrategias mixtas (ver Módulo 07).` });
+      }
+
+      const stepsDiv = document.getElementById('minimax-steps');
+      stepsDiv.innerHTML = steps.map(s => `<div class="minimax-step step-${s.type}">${s.text}</div>`).join('');
+    }
+
+    function clearSteps() {
+      document.getElementById('minimax-steps').innerHTML = '';
+      document.querySelectorAll('.matrix-input-grid input').forEach(inp => inp.classList.remove('saddle'));
+    }
+
+    buildMatrix();
+  </script>
 </body>
 </html>

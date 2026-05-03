@@ -7,6 +7,20 @@
   <title>Teoría Evolutiva — Teoría de Juegos</title>
   <link rel="stylesheet" href="../../css/main.css">
   <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    .widget-frame { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-6); margin: var(--space-8) 0; }
+    .param-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-4); }
+    .param-row { display: flex; flex-direction: column; gap: var(--space-1); }
+    .param-row label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .param-row .param-val { font-family: var(--font-mono); font-weight: 700; color: var(--primary); font-size: 1.1rem; }
+    .param-row input[type=range] { accent-color: var(--primary); width: 100%; }
+    .evo-controls { display: flex; gap: var(--space-3); margin-bottom: var(--space-4); flex-wrap: wrap; }
+    .evo-result { margin-top: var(--space-4); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); font-size: 0.875rem; }
+    .ess-stable   { background: #edfaf1; border-left: 3px solid #2d7a50; color: #1a4030; }
+    .ess-unstable { background: #fde8e8; border-left: 3px solid #c0392b; color: #7b1f1f; }
+    .ess-mixed    { background: #f3eeff; border-left: 3px solid #8b5cf6; color: #3b1a7a; }
+    @media (max-width: 480px) { .param-grid { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body class="module-page">
 
@@ -38,48 +52,59 @@
         <h1>Teoría Evolutiva de Juegos</h1>
         <p class="subtitle">Darwin juega: estrategias que se propagan, mutan y compiten en poblaciones</p>
         <div class="tag-list">
-          <span class="tag">ESS</span>
-          <span class="tag">replicator dynamics</span>
-          <span class="tag">Halcón-Paloma</span>
-          <span class="tag">selección</span>
+          <span class="tag">ESS</span><span class="tag">replicator dynamics</span>
+          <span class="tag">Halcón-Paloma</span><span class="tag">selección</span>
         </div>
       </header>
 
       <section>
         <h2>Sin racionalidad, con selección</h2>
-        <p>La teoría de juegos clásica asume jugadores perfectamente racionales que calculan estrategias óptimas. La teoría evolutiva abandona este supuesto: los jugadores son individuos en una población que simplemente <em>heredan</em> estrategias y se reproducen en función de su éxito.</p>
-        <p>El concepto central es la <strong>Estrategia Evolutivamente Estable (ESS)</strong>, introducida por John Maynard Smith: una estrategia que, si es adoptada por toda la población, no puede ser invadida por ningún mutante. Es el equivalente evolutivo del equilibrio de Nash, pero con una interpretación radicalmente diferente.</p>
-        <p>La <strong>dinámica del replicador</strong> describe cómo cambia la frecuencia de cada estrategia en el tiempo: las que obtienen mayor pago que la media crecen, las que obtienen menos se contraen. El sistema converge hacia la ESS si existe.</p>
+        <p>La teoría clásica asume jugadores perfectamente racionales. La teoría evolutiva abandona este supuesto: los jugadores son individuos en una población que <em>heredan</em> estrategias y se reproducen según su éxito.</p>
+        <p>La <strong>Estrategia Evolutivamente Estable (ESS)</strong> es una estrategia que, si es adoptada por toda la población, no puede ser invadida por ningún mutante. Es el equivalente evolutivo del equilibrio de Nash.</p>
+        <p>La <strong>dinámica del replicador</strong> describe cómo cambia la frecuencia de cada estrategia: las que obtienen mayor pago que la media crecen, las que obtienen menos se contraen. La ecuación: <em>ẋ = x·(f₀ − f̄)</em>, donde f̄ es el fitness medio.</p>
+        <p>El modelo más estudiado es el <strong>juego Halcón-Paloma</strong>: Halcones pelean por recursos, Palomas ceden. La proporción de equilibrio depende del ratio V/C (valor del recurso / coste del combate).</p>
       </section>
 
       <section>
         <h2>Conceptos clave</h2>
         <ul class="concept-list">
-          <li>
-            <span class="concept-name">ESS</span>
-            <span class="concept-desc">Estrategia Evolutivamente Estable: una estrategia que resiste la invasión de mutantes cuando es jugada por casi toda la población.</span>
-          </li>
-          <li>
-            <span class="concept-name">Replicator dynamics</span>
-            <span class="concept-desc">Sistema de ecuaciones diferenciales que describe la evolución de frecuencias de estrategias. Una ODE por estrategia, proporcional a la diferencia entre su pago y el pago medio.</span>
-          </li>
-          <li>
-            <span class="concept-name">Halcón-Paloma</span>
-            <span class="concept-desc">Juego de conflicto de recursos. Halcones pelean, Palomas ceden. La ESS es una mezcla de ambas dependiente del ratio V/C (valor del recurso / coste del combate).</span>
-          </li>
-          <li>
-            <span class="concept-name">Polimorfismo</span>
-            <span class="concept-desc">Cuando la ESS es una mezcla de estrategias, la población converge a una proporción estable de Halcones y Palomas, no a la extinción de ninguna.</span>
-          </li>
+          <li><span class="concept-name">ESS</span><span class="concept-desc">Estrategia que resiste la invasión de mutantes cuando es adoptada por casi toda la población.</span></li>
+          <li><span class="concept-name">Replicator dynamics</span><span class="concept-desc">ODE: ẋᵢ = xᵢ·(fᵢ − f̄). Las estrategias más exitosas crecen, las menos exitosas menguan.</span></li>
+          <li><span class="concept-name">Halcón-Paloma</span><span class="concept-desc">ESS mixto: fracción de Halcones = V/C en el equilibrio. Si V > C, la ESS es 100% Halcones.</span></li>
+          <li><span class="concept-name">Polimorfismo</span><span class="concept-desc">Cuando la ESS es una mezcla, la población converge a una proporción estable de ambas estrategias.</span></li>
         </ul>
       </section>
 
       <section>
-        <h2>Simulador de dinámica de población</h2>
-        <div class="widget-placeholder">
-          <div class="widget-icon">🧬</div>
-          <h3>Replicator dynamics en tiempo real — Fase 3</h3>
-          <p>Configura la distribución inicial de Halcones y Palomas, y los parámetros V y C del juego. Chart.js muestra la evolución de frecuencias y el atractor hacia el que converge la dinámica.</p>
+        <h2>Simulador de dinámica evolutiva</h2>
+        <p>Ajusta los parámetros del juego Halcón-Paloma y la proporción inicial. La simulación muestra cómo evoluciona la población hacia la ESS.</p>
+
+        <div class="widget-frame">
+          <div class="param-grid">
+            <div class="param-row">
+              <label>V — Valor del recurso</label>
+              <input type="range" id="V-slider" min="1" max="20" value="6" step="1" oninput="updateSim()">
+              <span class="param-val" id="V-val">6</span>
+            </div>
+            <div class="param-row">
+              <label>C — Coste del combate</label>
+              <input type="range" id="C-slider" min="1" max="20" value="10" step="1" oninput="updateSim()">
+              <span class="param-val" id="C-val">10</span>
+            </div>
+            <div class="param-row">
+              <label>Fracción inicial de Halcones</label>
+              <input type="range" id="x0-slider" min="1" max="99" value="20" oninput="updateSim()">
+              <span class="param-val" id="x0-val">20%</span>
+            </div>
+            <div class="param-row">
+              <label>Duración (generaciones)</label>
+              <input type="range" id="T-slider" min="10" max="60" value="30" step="5" oninput="updateSim()">
+              <span class="param-val" id="T-val">30</span>
+            </div>
+          </div>
+
+          <div id="evo-chart"></div>
+          <div id="evo-result"></div>
         </div>
       </section>
 
@@ -87,7 +112,7 @@
         <span class="notebook-callout-icon">📓</span>
         <div class="notebook-callout-content">
           <h4>Cuaderno Jupyter — Módulo 08</h4>
-          <p>Implementa las replicator dynamics con <code>scipy.integrate.solve_ivp</code>. Analiza la estabilidad de los equilibrios y visualiza los diagramas de fase para el juego Halcón-Paloma con distintos parámetros V/C.</p>
+          <p>Implementa las replicator dynamics con <code>scipy.integrate.solve_ivp</code>. Analiza estabilidad de equilibrios y diagrama de fases para distintos parámetros V/C.</p>
           <a href="../../notebooks/08_evolucionaria.ipynb" class="btn btn-sm btn-accent">Ver notebook</a>
         </div>
       </div>
@@ -113,6 +138,96 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
   <script src="../../js/core/progress.js"></script>
+  <script src="../../js/simulations/evolutionary.js"></script>
+  <script>
+    function updateSim() {
+      const V  = +document.getElementById('V-slider').value;
+      const C  = +document.getElementById('C-slider').value;
+      const x0 = document.getElementById('x0-slider').value / 100;
+      const T  = +document.getElementById('T-slider').value;
+
+      document.getElementById('V-val').textContent  = V;
+      document.getElementById('C-val').textContent  = C;
+      document.getElementById('x0-val').textContent = `${Math.round(x0 * 100)}%`;
+      document.getElementById('T-val').textContent  = T;
+
+      const A = Evolutionary.hawkDoveMatrix(V, C);
+      const data = Evolutionary.simulate({ A, x0, T, dt: 0.1 });
+      const ess  = Evolutionary.hawkDoveESS(V, C);
+
+      renderEvoChart(data, ess, V, C);
+      renderEvoResult(ess, V, C);
+      Progress.completeCurrentModule();
+    }
+
+    function renderEvoChart(data, ess, V, C) {
+      const W = 460, H = 280;
+      const m = { top: 20, right: 80, bottom: 50, left: 55 };
+      const w = W - m.left - m.right, h = H - m.top - m.bottom;
+
+      d3.select('#evo-chart').selectAll('*').remove();
+      const svg = d3.select('#evo-chart').append('svg')
+        .attr('viewBox', `0 0 ${W} ${H}`).attr('width', '100%');
+      const g = svg.append('g').attr('transform', `translate(${m.left},${m.top})`);
+
+      const tMax = data[data.length - 1].t;
+      const xSc = d3.scaleLinear().domain([0, tMax]).range([0, w]);
+      const ySc = d3.scaleLinear().domain([0, 1]).range([h, 0]);
+
+      g.append('g').call(d3.axisLeft(ySc).ticks(5).tickSize(-w).tickFormat(''))
+        .call(ax => ax.select('.domain').remove())
+        .call(ax => ax.selectAll('.tick line').attr('stroke','#f0ede6').attr('stroke-dasharray','3,3'));
+
+      g.append('g').attr('transform', `translate(0,${h})`).call(d3.axisBottom(xSc).ticks(6))
+        .call(ax => ax.select('.domain').attr('stroke','#e0dbd3'));
+      g.append('g').call(d3.axisLeft(ySc).ticks(5).tickFormat(d3.format('.0%')))
+        .call(ax => ax.select('.domain').attr('stroke','#e0dbd3'));
+
+      const line0 = d3.line().x(d => xSc(d.t)).y(d => ySc(d.x0)).curve(d3.curveCatmullRom);
+      const line1 = d3.line().x(d => xSc(d.t)).y(d => ySc(d.x1)).curve(d3.curveCatmullRom);
+
+      g.append('path').datum(data).attr('fill','none').attr('stroke','#c0392b').attr('stroke-width',2.5).attr('d',line0);
+      g.append('path').datum(data).attr('fill','none').attr('stroke','#2d7a50').attr('stroke-width',2.5).attr('d',line1);
+
+      // Línea ESS
+      if (ess > 0 && ess < 1) {
+        g.append('line').attr('x1',0).attr('y1',ySc(ess)).attr('x2',w).attr('y2',ySc(ess))
+          .attr('stroke','#8b5cf6').attr('stroke-dasharray','6,3').attr('stroke-width',1.5);
+        g.append('text').attr('x', w+4).attr('y', ySc(ess)+4)
+          .attr('font-size',10).attr('fill','#8b5cf6').text(`ESS=${(ess*100).toFixed(0)}%`);
+      }
+
+      // Etiquetas
+      ['Halcones','Palomas'].forEach((label, i) => {
+        const last = data[data.length-1];
+        const y = ySc(i===0 ? last.x0 : last.x1);
+        g.append('text').attr('x',w+4).attr('y',y+4).attr('font-size',10)
+          .attr('fill', i===0 ? '#c0392b' : '#2d7a50').text(label);
+      });
+
+      g.append('text').attr('x',w/2).attr('y',h+40).attr('text-anchor','middle')
+        .attr('font-size',11).attr('fill','#6b6560').text('Generaciones');
+      svg.append('text').attr('x',12).attr('y',H/2)
+        .attr('transform',`rotate(-90,12,${H/2})`).attr('text-anchor','middle')
+        .attr('font-size',11).attr('fill','#6b6560').text('Proporción en la población');
+    }
+
+    function renderEvoResult(ess, V, C) {
+      let msg, cls;
+      if (V >= C) {
+        msg = `V (${V}) ≥ C (${C}): ser Halcón es siempre mejor. La ESS es <strong>100% Halcones</strong>. Palomas se extinguen.`;
+        cls = 'ess-unstable';
+      } else {
+        const pct = (ess * 100).toFixed(1);
+        msg = `V (${V}) < C (${C}): la ESS es un polimorfismo estable con <strong>${pct}% Halcones</strong> y ${(100-ess*100).toFixed(1)}% Palomas. La fórmula: ESS = V/C = ${V}/${C}.`;
+        cls = 'ess-mixed';
+      }
+      document.getElementById('evo-result').innerHTML = `<div class="evo-result ${cls}">${msg}</div>`;
+    }
+
+    updateSim();
+  </script>
 </body>
 </html>
